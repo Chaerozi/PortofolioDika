@@ -6,20 +6,11 @@ import espProject from "../assets/images/Esp.png";
 import travelProject from "../assets/images/Travel.png";
 import pProject from "../assets/images/p.png";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0 },
-};
-
 const Projects = () => {
   return (
-    <motion.section
+    <section
       id="projects"
-      className="relative pt-32 pb-24 bg-white"
-      initial="hidden"
-      animate="visible"
-      variants={fadeUp}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative pt-28 pb-20 bg-white overflow-hidden"
     >
       {/* Background Accent */}
       <div className="absolute -top-40 -right-40 w-[360px] h-[360px] bg-gray-200 rounded-full blur-3xl opacity-40 pointer-events-none" />
@@ -39,42 +30,45 @@ const Projects = () => {
           <div className="mt-4 w-14 h-[2px] bg-gray-900" />
 
           {/* ================= GRID PROJECTS ================= */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 auto-rows-fr">
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
 
-            {[{
-              img: espProject,
-              title: "Smart Door Lock IoT System",
-              desc: "Developed an ESP32-CAM–based smart door lock system utilizing face recognition for secure and automated access control.",
-              tech: "ESP32-CAM • IoT Hardware • Embedded System"
-            },
-            {
-              img: vandaProject,
-              title: "Vanda Dimension Properti",
-              desc: "Developed a responsive business landing page focusing on clean UI design and marketing presence.",
-              tech: "HTML • CSS • JavaScript",
-              link: "https://vanda-gules.vercel.app/"
-            },
-            {
-              img: pProject,
-              title: "Registration & Landing Page System",
-              desc: "Web-based registration and landing page system with frontend–backend integration.",
-              tech: "Web Application • Frontend–Backend Integration",
-              link: "https://github.com/jonathanborta/projectproteinbaru.git"
-            },
-            {
-              img: travelProject,
-              title: "Travel Kuy — Travel Booking Web App",
-              desc: "Travel booking web application with backend logic and database integration.",
-              tech: "Flutter • Backend Logic • Database",
-              link: "https://github.com/Chaerozi/APB"
-            }].map((project, index) => (
+            {[
+              {
+                img: espProject,
+                title: "Smart Door Lock IoT System",
+                desc: "Developed an ESP32-CAM–based smart door lock system utilizing face recognition for secure and automated access control.",
+                tech: "ESP32-CAM • IoT Hardware • Embedded System"
+              },
+              {
+                img: vandaProject,
+                title: "Vanda Dimension Properti",
+                desc: "Developed a responsive business landing page focusing on clean UI design and marketing presence.",
+                tech: "HTML • CSS • JavaScript",
+                link: "https://vanda-gules.vercel.app/"
+              },
+              {
+                img: pProject,
+                title: "Registration & Landing Page System",
+                desc: "Web-based registration and landing page system with frontend–backend integration.",
+                tech: "Web Application • Frontend–Backend Integration",
+                link: "https://github.com/jonathanborta/projectproteinbaru.git"
+              },
+              {
+                img: travelProject,
+                title: "Travel Kuy — Travel Booking Web App",
+                desc: "Travel booking web application with backend logic and database integration.",
+                tech: "Flutter • Backend Logic • Database",
+                link: "https://github.com/Chaerozi/APB"
+              }
+            ].map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ scale: 1.03 }}
-                className="group border border-gray-200 overflow-hidden hover:border-gray-900 hover:shadow-xl transition flex flex-col h-full"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                whileHover={{ scale: 1.02 }}
+                className="group border border-gray-200 hover:border-gray-900 hover:shadow-xl transition flex flex-col"
               >
                 {/* Image */}
                 <div className="w-full aspect-[4/3] bg-gray-50 overflow-hidden">
@@ -86,16 +80,16 @@ const Projects = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-8 flex flex-col flex-1">
-                  <h3 className="text-xl font-semibold text-gray-900">
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900">
                     {project.title}
                   </h3>
 
-                  <p className="mt-4 text-gray-600 leading-relaxed flex-1">
+                  <p className="mt-3 text-gray-600 text-sm leading-relaxed flex-1">
                     {project.desc}
                   </p>
 
-                  <p className="mt-4 text-sm text-gray-500">
+                  <p className="mt-4 text-xs text-gray-500">
                     {project.tech}
                   </p>
 
@@ -104,7 +98,7 @@ const Projects = () => {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-6 text-sm font-medium px-4 py-2 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition"
+                      className="inline-block mt-5 text-sm font-medium border border-gray-900 px-4 py-2 hover:bg-gray-900 hover:text-white transition"
                     >
                       View Repository
                     </a>
@@ -112,55 +106,55 @@ const Projects = () => {
                 </div>
               </motion.div>
             ))}
+
           </div>
 
           {/* ================= FEATURED PROJECTS ================= */}
-          <div className="mt-28 grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-            {[{
-              img: khaProject,
-              title: "Khadijah Preschool — Landing & Registration System",
-              desc: "Production-ready preschool website featuring landing page optimization and secure payment gateway integration."
-            },
-            {
-              img: ktProject,
-              title: "Bimbel & Kursus Rumah Sukses — Tutoring Center Website",
-              desc: "Fully responsive tutoring center website with online registration and secure payment gateway integration."
-            }].map((project, index) => (
+            {[
+              {
+                img: khaProject,
+                title: "Khadijah Preschool — Landing & Registration System",
+                desc: "Production-ready preschool website featuring landing page optimization and secure payment gateway integration."
+              },
+              {
+                img: ktProject,
+                title: "Bimbel & Kursus Rumah Sukses — Tutoring Center Website",
+                desc: "Fully responsive tutoring center website with online registration and secure payment gateway integration."
+              }
+            ].map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
               >
-                {/* Image */}
-                <div className="aspect-[4/5] bg-white rounded-3xl shadow-2xl overflow-hidden flex items-center justify-center">
+                <div className="aspect-[4/5] bg-white rounded-3xl shadow-xl overflow-hidden flex items-center justify-center">
                   <img
                     src={project.img}
                     alt={project.title}
-                    className="w-full h-full object-contain p-8"
+                    className="w-full h-full object-contain p-6"
                   />
                 </div>
 
-                {/* Content */}
-                <div className="mt-10">
-                  <h3 className="text-2xl font-bold text-gray-900 leading-snug">
+                <div className="mt-8">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {project.title}
                   </h3>
 
-                  <p className="mt-6 text-gray-600 leading-relaxed">
+                  <p className="mt-4 text-sm text-gray-600 leading-relaxed">
                     {project.desc}
                   </p>
 
-                  <p className="mt-6 text-sm text-gray-500">
+                  <p className="mt-4 text-xs text-gray-500">
                     React • TypeScript • Tailwind • Backend • Payment Gateway
                   </p>
 
                   <a
                     href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-8 px-6 py-3 border border-gray-900 text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white transition"
+                    className="inline-block mt-6 text-sm font-medium border border-gray-900 px-4 py-2 hover:bg-gray-900 hover:text-white transition"
                   >
                     View GitHub Repository
                   </a>
@@ -172,7 +166,7 @@ const Projects = () => {
 
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 
