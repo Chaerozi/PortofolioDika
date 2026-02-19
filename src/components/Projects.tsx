@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import khaProject from "../assets/images/Kha.png";
 import ktProject from "../assets/images/kt.png";
-import vandaProject from "../assets/images/Vanda.png";
+import vandaProject from "../assets/images/VAnda.png";
 import espProject from "../assets/images/Esp.png";
 import travelProject from "../assets/images/Travel.png";
 import pProject from "../assets/images/p.png";
