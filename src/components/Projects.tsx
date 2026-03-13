@@ -7,7 +7,7 @@ import espProject from "../assets/images/Esp.png";
 import travelProject from "../assets/images/Travel.png";
 import pProject from "../assets/images/p.png";
 import paperProject from "../assets/images/paper.png";
-import aquoraProject from "../assets/images/aquora.png";
+import aquoraProject from "../assets/images/Aquora.png";
 
 const projects = [
   {
