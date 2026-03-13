@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar";
+import DarkModeToggle from "./components/DarkModeToggle";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";

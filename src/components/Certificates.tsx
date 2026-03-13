@@ -40,10 +40,10 @@ const Certificates = () => {
   return (
     <section
       id="certifications"
-      className="relative py-24 bg-white overflow-hidden"
+      className="relative py-24 bg-white dark:bg-black overflow-hidden transition-colors"
     >
-      {/* LEFT SOFT ACCENT */}
-      <div className="absolute -top-40 -left-40 w-[380px] h-[380px] bg-gray-200 rounded-full blur-3xl opacity-40" />
+      {/* Accent */}
+      <div className="absolute -top-40 -left-40 w-[380px] h-[380px] bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40" />
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="max-w-6xl ml-auto lg:mr-16">
@@ -52,26 +52,32 @@ const Certificates = () => {
             Certifications
           </span>
 
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             Certifications & Language
           </h2>
 
-          <div className="mt-4 w-14 h-[2px] bg-gray-900" />
+          <div className="mt-4 w-14 h-[2px] bg-gray-900 dark:bg-white" />
 
           {/* GRID */}
           <div className="mt-16 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+
             {certificates.map((item, index) => (
               <button
                 key={index}
                 onClick={() => setPreview(item.img)}
-                className="group relative bg-white border border-gray-200
-                           rounded-2xl p-3 text-left
-                           hover:shadow-xl transition-all duration-300"
+                className="
+                group relative
+                bg-white dark:bg-neutral-900
+                border border-gray-200 dark:border-gray-800
+                rounded-2xl p-3 text-left
+                hover:shadow-xl transition-all duration-300
+                "
               >
+
                 {/* BADGE */}
                 <span
                   className={`absolute top-3 left-3 text-xs px-2 py-1 rounded-full
-                              ${badgeStyle[item.type as keyof typeof badgeStyle]}`}
+                  ${badgeStyle[item.type as keyof typeof badgeStyle]}`}
                 >
                   {item.type}
                 </span>
@@ -79,34 +85,41 @@ const Certificates = () => {
                 <img
                   src={item.img}
                   alt={item.label}
-                  className="w-full h-52 sm:h-56 object-contain
-                             transition-transform duration-300
-                             group-hover:scale-[1.04]"
+                  className="
+                  w-full h-52 sm:h-56 object-contain
+                  transition-transform duration-300
+                  group-hover:scale-[1.04]
+                  "
                 />
+
               </button>
             ))}
+
           </div>
 
-          {/* LANGUAGE (RIGHT SIDE FILLED) */}
+          {/* LANGUAGE */}
           <div className="mt-24 max-w-3xl ml-auto">
-            <h3 className="text-lg font-semibold text-gray-900">
+
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Language
             </h3>
 
-            <ul className="mt-6 space-y-4 text-gray-600">
+            <ul className="mt-6 space-y-4 text-gray-600 dark:text-gray-300">
               <li>
-                <span className="font-medium text-gray-800">
+                <span className="font-medium text-gray-800 dark:text-gray-100">
                   Bahasa Indonesia
                 </span>{" "}
                 — Native
               </li>
+
               <li>
-                <span className="font-medium text-gray-800">
+                <span className="font-medium text-gray-800 dark:text-gray-100">
                   English
                 </span>{" "}
                 — TOEFL ITP 547
               </li>
             </ul>
+
           </div>
 
         </div>
@@ -116,12 +129,11 @@ const Certificates = () => {
       {preview && (
         <div
           onClick={() => setPreview(null)}
-          className="fixed inset-0 z-50 bg-black/70
-                     flex items-center justify-center p-6"
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-6"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl p-4 max-w-4xl w-full"
+            className="bg-white dark:bg-neutral-900 rounded-2xl p-4 max-w-4xl w-full"
           >
             <img
               src={preview}
@@ -131,6 +143,7 @@ const Certificates = () => {
           </div>
         </div>
       )}
+
     </section>
   );
 };

@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-28 bg-white"
+      className="py-28 bg-white dark:bg-black transition-colors"
     >
       <div className="max-w-7xl mx-auto px-6 text-center">
 
@@ -16,30 +16,30 @@ const Contact = () => {
         </span>
 
         {/* Title */}
-        <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
+        <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
           Get In Touch
         </h2>
 
         {/* Divider */}
-        <div className="mt-4 mx-auto w-14 h-[2px] bg-gray-900" />
+        <div className="mt-4 mx-auto w-14 h-[2px] bg-gray-900 dark:bg-white" />
 
         {/* Subtitle */}
-        <p className="mt-6 text-lg text-gray-600">
+        <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
           Feel free to reach out for opportunities or collaborations
         </p>
 
         {/* Contact Items */}
-        <div className="mt-12 flex flex-wrap justify-center items-center gap-10 text-gray-700">
+        <div className="mt-12 flex flex-wrap justify-center items-center gap-10 text-gray-700 dark:text-gray-300">
 
           {/* Email */}
           <a
             href="mailto:ardikarahmadseptian78@gmail.com"
-            className="flex items-center gap-3 hover:text-gray-900 transition"
+            className="flex items-center gap-3 hover:text-gray-900 dark:hover:text-white transition"
           >
             <img
               src={EmailIcon}
               alt="Email"
-              className="w-6 h-6 -translate-y-[1px]"
+              className="w-6 h-6"
             />
             <span className="text-base">
               ardikarahmadseptian78@gmail.com
@@ -51,12 +51,12 @@ const Contact = () => {
             href="https://www.linkedin.com/in/ardika-rahmad-47485b263/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 hover:text-gray-900 transition"
+            className="flex items-center gap-3 hover:text-gray-900 dark:hover:text-white transition"
           >
             <img
               src={LinkedinIcon}
               alt="LinkedIn"
-              className="w-6 h-6 -translate-y-[1px]"
+              className="w-6 h-6"
             />
             <span className="text-base">
               LinkedIn
@@ -68,12 +68,12 @@ const Contact = () => {
             href="https://github.com/Chaerozi"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 hover:text-gray-900 transition"
+            className="flex items-center gap-3 hover:text-gray-900 dark:hover:text-white transition"
           >
             <img
               src={GitIcon}
               alt="GitHub"
-              className="w-6 h-6 -translate-y-[1px]"
+              className="w-6 h-6"
             />
             <span className="text-base">
               GitHub
@@ -83,8 +83,8 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Soft separator to Footer */}
-      <div className="mt-24 border-t border-gray-200" />
+      {/* Separator */}
+      <div className="mt-24 border-t border-gray-200 dark:border-gray-800" />
     </section>
   );
 };

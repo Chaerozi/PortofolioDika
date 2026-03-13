@@ -1,78 +1,114 @@
 const Skills = () => {
+  const technical = [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "REST API Development",
+    "MySQL",
+    "MongoDB",
+    "Computer Networking",
+    "MikroTik RouterOS",
+    "IoT Development (ESP32, ESP32-CAM)"
+  ];
+
+  const tools = [
+    "Git",
+    "GitHub",
+    "Visual Studio Code",
+    "Postman",
+    "Figma",
+    "Cisco Packet Tracer"
+  ];
+
+  const soft = [
+    "Communication",
+    "Teamwork",
+    "Leadership",
+    "Problem Solving",
+    "Time Management"
+  ];
+
+  const renderSkills = (skills: string[]) =>
+    skills.map((skill, index) => (
+      <span
+        key={index}
+        className="
+        px-4 py-2
+        text-sm
+        border border-gray-300 dark:border-gray-700
+        text-gray-700 dark:text-gray-300
+        rounded-md
+        hover:border-gray-900 dark:hover:border-white
+        transition
+        "
+      >
+        {skill}
+      </span>
+    ));
+
   return (
     <section
       id="skills"
-      className="relative py-24 bg-white overflow-hidden"
+      className="relative py-24 bg-white dark:bg-black overflow-hidden"
     >
-      {/* LEFT SOFT BACKGROUND ACCENT */}
+      {/* Accent */}
       <div
         className="absolute -top-40 -right-40 w-[360px] h-[360px]
-                   bg-gray-200 rounded-full blur-3xl opacity-40"
+        bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40"
       />
 
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="max-w-5xl ml-auto lg:mr-16">
 
-          {/* Section Label */}
+          {/* Header */}
           <span className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
             Skills
           </span>
 
-          {/* Title */}
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900">
+          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             My Expertise
           </h2>
 
-          {/* Divider */}
-          <div className="mt-4 w-14 h-[2px] bg-gray-900" />
+          <div className="mt-4 w-14 h-[2px] bg-gray-900 dark:bg-white" />
 
-          {/* Skills Grid */}
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-14">
+          {/* Grid */}
+          <div className="mt-14 grid md:grid-cols-3 gap-14">
 
             {/* Technical */}
             <div>
-              <h3 className="text-base font-semibold text-gray-900">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                 Technical
               </h3>
-              <ul className="mt-6 space-y-3 text-gray-600 leading-relaxed">
-                <li>React.js, Node.js, Express.js</li>
-                <li>REST API Development</li>
-                <li>MySQL, MongoDB (Basic)</li>
-                <li>Computer Networking (TCP/IP, Routing, Switching)</li>
-                <li>MikroTik RouterOS (Basic)</li>
-                <li>IoT Development (ESP32, ESP32-CAM, Face Recognition)</li>
-              </ul>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {renderSkills(technical)}
+              </div>
             </div>
 
             {/* Tools */}
             <div>
-              <h3 className="text-base font-semibold text-gray-900">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                 Tools
               </h3>
-              <ul className="mt-6 space-y-3 text-gray-600 leading-relaxed">
-                <li>Git & GitHub</li>
-                <li>Visual Studio Code</li>
-                <li>Postman</li>
-                <li>Figma</li>
-                <li>Cisco Packet Tracer</li>
-              </ul>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {renderSkills(tools)}
+              </div>
             </div>
 
             {/* Soft Skills */}
             <div>
-              <h3 className="text-base font-semibold text-gray-900">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                 Soft Skills
               </h3>
-              <ul className="mt-6 space-y-3 text-gray-600 leading-relaxed">
-                <li>Communication</li>
-                <li>Teamwork</li>
-                <li>Leadership</li>
-                <li>Problem Solving</li>
-                <li>Time Management</li>
-              </ul>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {renderSkills(soft)}
+              </div>
             </div>
 
           </div>
+
         </div>
       </div>
     </section>
