@@ -13,7 +13,7 @@ import Acp from "../assets/images/certificates/acp.png";
 import UjiKompetensi from "../assets/images/certificates/UjiKompetensi.jpg";
 import Bnsp from "../assets/images/certificates/bnsp.png";
 import ArsitekturFullStack from "../assets/images/certificates/Fullstack.jpg"
-import { label } from "framer-motion/client";
+
 
 const certificates = [
   { img: Conference, label: "Conference", type: "International" },
