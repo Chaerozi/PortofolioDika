@@ -12,6 +12,8 @@ import Axio from "../assets/images/certificates/axio.png";
 import Acp from "../assets/images/certificates/acp.png";
 import UjiKompetensi from "../assets/images/certificates/UjiKompetensi.jpg";
 import Bnsp from "../assets/images/certificates/bnsp.png";
+import ArsitekturFullStack from "../assets/images/certificates/Fullstack.jpg"
+import { label } from "framer-motion/client";
 
 const certificates = [
   { img: Conference, label: "Conference", type: "International" },
@@ -26,6 +28,7 @@ const certificates = [
   { img: Acp, label: "ACP", type: "Training" },
   { img: UjiKompetensi, label: "Competency Test", type: "National" },
   { img: Bnsp, label: "BNSP", type: "National" },
+  { img: ArsitekturFullStack, label: "Full Stack Web Development", type: "Training" },
 ];
 
 const badgeStyle = {
