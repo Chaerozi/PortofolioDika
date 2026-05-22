@@ -14,7 +14,6 @@ import UjiKompetensi from "../assets/images/certificates/UjiKompetensi.jpg";
 import Bnsp from "../assets/images/certificates/bnsp.png";
 import ArsitekturFullStack from "../assets/images/certificates/Fullstack.jpg"
 
-
 const certificates = [
   { img: Conference, label: "Conference", type: "International" },
   { img: Jabar, label: "West Java", type: "National" },

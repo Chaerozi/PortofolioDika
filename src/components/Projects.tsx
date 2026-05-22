@@ -1,78 +1,92 @@
 import { motion } from "framer-motion";
 
-import khaProject from "../assets/images/Kha.png";
-import ktProject from "../assets/images/kt.png";
+import khaProject from "../assets/images/image3.png";
+import ktProject from "../assets/images/image2.png";
 import vandaProject from "../assets/images/VAnda.png";
 import espProject from "../assets/images/Esp.png";
 import travelProject from "../assets/images/Travel.png";
 import pProject from "../assets/images/p.png";
 import paperProject from "../assets/images/paper.png";
-import aquoraProject from "../assets/images/Aquora.png";
+import aquoraProject from "../assets/images/image.png";
 
 const projects = [
   {
     img: espProject,
     title: "Smart Door Lock IoT System",
-    desc: "Developed an ESP32-CAM–based smart door lock system utilizing face recognition for secure and automated access control.",
-    tech: "ESP32-CAM • IoT Hardware • Embedded System",
+    desc: "ESP32-CAM–based smart door lock system with face recognition for secure and automated access control.",
+    tech: "ESP32-CAM • IoT • Embedded System",
     type: "Client Project",
+    imageClass: "object-contain object-center scale-[0.9]",
   },
+
+  {
+    img: aquoraProject,
+    title: "Aquora — Smart Water Monitoring System",
+    desc: "IoT-based water monitoring system with real-time dashboard and environmental monitoring features.",
+    tech: "IoT • Web Dashboard • Monitoring System",
+    type: "Client Project",
+    link: "https://github.com/Chaerozi/Tugas-Akhir-Water.git",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+
+  {
+    img: khaProject,
+    title: "Khadijah Preschool Website",
+    desc: "Responsive preschool website with online registration and payment gateway integration.",
+    tech: "React • Tailwind • Payment Gateway",
+    type: "Client Project",
+    link: "https://github.com/Chaerozi/Khadijah-Landing",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+
+  {
+    img: ktProject,
+    title: "Rumah Sukses Tutoring Website",
+    desc: "Tutoring center website with online registration and responsive user interface.",
+    tech: "React • Node.js • MySQL",
+    type: "Client Project",
+    link: "https://github.com/Chaerozi/Bimbel",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+
   {
     img: vandaProject,
     title: "Vanda Dimension Properti",
-    desc: "Developed a responsive business landing page focusing on clean UI design and marketing presence.",
+    desc: "Business landing page focused on modern UI design and company branding.",
     tech: "React • TypeScript • Tailwind",
     type: "Client Project",
     link: "https://vanda-gules.vercel.app/",
+    imageClass: "object-contain object-center scale-[0.92]",
   },
+
+  {
+    img: travelProject,
+    title: "Travel Kuy — Travel Booking App",
+    desc: "Travel booking application with backend integration and database management.",
+    tech: "Flutter • Backend • Database",
+    type: "Academic Project",
+    link: "https://github.com/Chaerozi/APB",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+
   {
     img: pProject,
     title: "Registration & Landing Page System",
-    desc: "Web-based registration and landing page system with frontend–backend integration.",
-    tech: "Web Application • Frontend–Backend Integration",
+    desc: "Web-based registration system with frontend and backend integration.",
+    tech: "Web App • Fullstack Development",
     type: "Academic Project",
     link: "https://github.com/jonathanborta/projectproteinbaru.git",
+    imageClass: "object-contain object-center scale-[0.92]",
   },
-  {
-    img: travelProject,
-    title: "Travel Kuy — Travel Booking Web App",
-    desc: "Travel booking web application with backend logic and database integration.",
-    tech: "Flutter • Backend Logic • Database",
-    type: "Academic Project",
-    link: "https://github.com/Chaerozi/APB",
-  },
+
   {
     img: paperProject,
-    title: "Smart Farming Machine Learning Model",
-    desc: "Machine learning notebook for optimizing smart farming actuator systems using ensemble models and IoT data analysis.",
-    tech: "Python • Machine Learning • IoT • Data Analysis",
-    type: "Academic Project",
+    title: "Smart Farming ML Model",
+    desc: "Machine learning model for smart farming actuator optimization using IoT data analysis.",
+    tech: "Python • Machine Learning • IoT",
+    type: "Research Project",
     link: "https://github.com/Chaerozi/notebook-smart_farming_model.ipynb",
-  },
-  {
-  img: aquoraProject,
-  title: "Aquora — Smart Water Monitoring System",
-  desc: "IoT-based water monitoring system designed to track water usage and environmental conditions with real-time data visualization.",
-  tech: "IoT • Embedded System • Web Dashboard",
-  type: "Client Project",
-  link: "https://github.com/Chaerozi/Tugas-Akhir-Water.git",
-},
-];
-
-const featured = [
-  {
-    img: khaProject,
-    title: "Khadijah Preschool — Landing & Registration System",
-    desc: "Production-ready preschool website featuring landing page optimization and secure payment gateway integration.",
-    type: "Client Project",
-    link: "https://github.com/Chaerozi/Khadijah-Landing",
-  },
-  {
-    img: ktProject,
-    title: "Bimbel & Kursus Rumah Sukses — Tutoring Center Website",
-    desc: "Fully responsive tutoring center website with online registration and secure payment gateway integration.",
-    type: "Client Project",
-    link: "https://github.com/Chaerozi/Bimbel",
+    imageClass: "object-contain object-center scale-[0.92]",
   },
 ];
 
@@ -80,137 +94,107 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative pt-28 pb-20 bg-white dark:bg-black overflow-hidden transition-colors"
+      className="relative py-24 bg-white dark:bg-black transition-colors"
     >
-      <div className="absolute -top-40 -right-40 w-[360px] h-[360px] bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40 pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-6">
-        <div className="max-w-5xl mx-auto">
-
-          <span className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div className="max-w-3xl">
+          <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-400">
             Projects
           </span>
 
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             Selected Projects
           </h2>
 
-          <div className="mt-4 w-14 h-[2px] bg-gray-900 dark:bg-white" />
+          <div className="mt-4 w-12 h-[2px] bg-gray-900 dark:bg-white" />
+        </div>
 
-          {/* GRID PROJECTS */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
-
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                whileHover={{ scale: 1.02 }}
-                className="group border border-gray-200 dark:border-gray-800 hover:border-gray-900 dark:hover:border-white hover:shadow-xl transition flex flex-col bg-white dark:bg-neutral-900"
+        {/* Projects Grid */}
+        <div className="mt-16 grid md:grid-cols-2 gap-8">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="
+                group
+                overflow-hidden
+                rounded-3xl
+                border border-gray-200 dark:border-gray-800
+                bg-white dark:bg-neutral-950
+                transition duration-300
+                hover:-translate-y-1
+              "
+            >
+              {/* Image */}
+              <div
+                className="
+                  flex items-center justify-center
+                  h-[260px] md:h-[320px]
+                  overflow-hidden
+                  bg-gray-100 dark:bg-neutral-900
+                "
               >
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  className={`
+                    w-full
+                    h-full
+                    transition-transform duration-500
+                    group-hover:scale-[1.02]
+                    ${project.imageClass}
+                  `}
+                />
+              </div>
 
-                <div className="w-full aspect-[4/3] bg-gray-50 dark:bg-neutral-800 overflow-hidden">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-                </div>
-
-                <div className="p-6 flex flex-col flex-1">
-
-                  <span className="inline-block w-fit text-xs font-medium px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              {/* Content */}
+              <div className="p-6">
+                <div className="flex items-center justify-between gap-4">
+                  <span
+                    className="
+                      text-xs
+                      px-3 py-1
+                      rounded-full
+                      bg-gray-100 dark:bg-neutral-900
+                      text-gray-600 dark:text-gray-300
+                    "
+                  >
                     {project.type}
                   </span>
-
-                  <h3 className="mt-3 text-lg font-semibold text-gray-900 dark:text-white">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed flex-1">
-                    {project.desc}
-                  </p>
-
-                  <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-                    {project.tech}
-                  </p>
-
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center mt-5 text-sm font-medium px-5 py-2.5 rounded-lg border border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
-                    >
-                      View Repository
-                    </a>
-                  )}
-
                 </div>
 
-              </motion.div>
-            ))}
+                <h3 className="mt-5 text-xl font-semibold text-gray-900 dark:text-white">
+                  {project.title}
+                </h3>
 
-          </div>
+                <p className="mt-3 text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {project.desc}
+                </p>
 
-          {/* FEATURED PROJECTS */}
-          <div className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                  {project.tech}
+                </p>
 
-            {featured.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-              >
-
-                <div className="aspect-[4/5] bg-white dark:bg-neutral-900 rounded-3xl shadow-xl overflow-hidden flex items-center justify-center">
-                  <img
-                    src={project.img}
-                    alt={project.title}
-                    className="w-full h-full object-contain p-6"
-                  />
-                </div>
-
-                <div className="mt-8">
-
-                  <span className="inline-block text-xs font-medium px-2.5 py-1 rounded-md bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                    {project.type}
-                  </span>
-
-                  <h3 className="mt-3 text-xl font-semibold text-gray-900 dark:text-white">
-                    {project.title}
-                  </h3>
-
-                  <p className="mt-4 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {project.desc}
-                  </p>
-
-                  <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
-                    React • TypeScript • Tailwind • Backend • Payment Gateway
-                  </p>
-
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center mt-6 text-sm font-medium px-6 py-3 rounded-lg border border-gray-900 dark:border-white text-gray-900 dark:text-white hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
-                    >
-                      View Repository
-                    </a>
-                  )}
-
-                </div>
-
-              </motion.div>
-            ))}
-
-          </div>
-
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="
+                      inline-flex items-center gap-2
+                      mt-6
+                      text-sm font-medium
+                      text-gray-900 dark:text-white
+                      hover:opacity-70
+                      transition
+                    "
+                  >
+                    View Project →
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

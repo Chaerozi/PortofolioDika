@@ -1,114 +1,113 @@
+const skillGroups = [
+  {
+    title: "Frontend",
+    skills: [
+      "React.js",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "Responsive Web Design",
+    ],
+  },
+
+  {
+    title: "Backend",
+    skills: [
+      "Node.js",
+      "Express.js",
+      "REST API",
+      "MySQL",
+      "PostgreSQL",
+    ],
+  },
+
+  {
+    title: "IoT & Networking",
+    skills: [
+      "ESP32",
+      "ESP32-CAM",
+      "IoT Development",
+      "Computer Networking",
+      "MikroTik RouterOS",
+      "Cisco Packet Tracer",
+    ],
+  },
+
+  {
+    title: "Tools",
+    skills: [
+      "Git",
+      "GitHub",
+      "Postman",
+      "Figma",
+      "Visual Studio Code",
+    ],
+  },
+
+  {
+    title: "Soft Skills",
+    skills: [
+      "Communication",
+      "Leadership",
+      "Problem Solving",
+      "Team Collaboration",
+    ],
+  },
+];
+
 const Skills = () => {
-  const technical = [
-    "React.js",
-    "Node.js",
-    "Express.js",
-    "REST API Development",
-    "MySQL",
-    "MongoDB",
-    "Computer Networking",
-    "MikroTik RouterOS",
-    "IoT Development (ESP32, ESP32-CAM)"
-  ];
-
-  const tools = [
-    "Git",
-    "GitHub",
-    "Visual Studio Code",
-    "Postman",
-    "Figma",
-    "Cisco Packet Tracer"
-  ];
-
-  const soft = [
-    "Communication",
-    "Teamwork",
-    "Leadership",
-    "Problem Solving",
-    "Time Management"
-  ];
-
-  const renderSkills = (skills: string[]) =>
-    skills.map((skill, index) => (
-      <span
-        key={index}
-        className="
-        px-4 py-2
-        text-sm
-        border border-gray-300 dark:border-gray-700
-        text-gray-700 dark:text-gray-300
-        rounded-md
-        hover:border-gray-900 dark:hover:border-white
-        transition
-        "
-      >
-        {skill}
-      </span>
-    ));
-
   return (
     <section
       id="skills"
-      className="relative py-24 bg-white dark:bg-black overflow-hidden"
+      className="relative py-24 bg-white dark:bg-black transition-colors"
     >
-      {/* Accent */}
-      <div
-        className="absolute -top-40 -right-40 w-[360px] h-[360px]
-        bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40"
-      />
-
-      <div className="relative max-w-7xl mx-auto px-6">
-        <div className="max-w-5xl ml-auto lg:mr-16">
-
-          {/* Header */}
-          <span className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Header */}
+        <div className="max-w-3xl">
+          <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-400">
             Skills
           </span>
 
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-            My Expertise
+          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            Technical Skills & Tools
           </h2>
 
-          <div className="mt-4 w-14 h-[2px] bg-gray-900 dark:bg-white" />
+          <div className="mt-4 w-12 h-[2px] bg-gray-900 dark:bg-white" />
+        </div>
 
-          {/* Grid */}
-          <div className="mt-14 grid md:grid-cols-3 gap-14">
-
-            {/* Technical */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                Technical
+        {/* Skills Grid */}
+        <div className="mt-16 grid md:grid-cols-2 gap-8">
+          {skillGroups.map((group, index) => (
+            <div
+              key={index}
+              className="
+                rounded-2xl
+                border border-gray-200 dark:border-gray-800
+                p-6
+              "
+            >
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {group.title}
               </h3>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                {renderSkills(technical)}
+              <div className="mt-5 flex flex-wrap gap-3">
+                {group.skills.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="
+                      px-4 py-2
+                      text-sm
+                      rounded-full
+                      bg-gray-100 dark:bg-neutral-900
+                      text-gray-700 dark:text-gray-300
+                    "
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
-
-            {/* Tools */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                Tools
-              </h3>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                {renderSkills(tools)}
-              </div>
-            </div>
-
-            {/* Soft Skills */}
-            <div>
-              <h3 className="text-base font-semibold text-gray-900 dark:text-white">
-                Soft Skills
-              </h3>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                {renderSkills(soft)}
-              </div>
-            </div>
-
-          </div>
-
+          ))}
         </div>
       </div>
     </section>

@@ -6,8 +6,10 @@ const About = () => {
     >
       {/* LEFT BACKGROUND ACCENT */}
       <div
-        className="absolute -top-40 -left-40 w-[360px] h-[360px]
-        bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40"
+        className="
+          absolute -top-40 -left-40 w-[360px] h-[360px]
+          bg-gray-200 dark:bg-gray-800 rounded-full blur-3xl opacity-40
+        "
       />
 
       <div className="relative max-w-7xl mx-auto px-6">
@@ -30,25 +32,26 @@ const About = () => {
           <div className="mt-10 space-y-6">
 
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              I am a fresh graduate in Information Technology from{" "}
+              Information Technology graduate from{" "}
               <span className="font-medium text-gray-800 dark:text-gray-100">
                 Telkom University
               </span>{" "}
-              with a strong interest in software development, IT infrastructure,
-              and IoT systems.
+              with a strong foundation in full-stack development,
+              IoT systems, and technology infrastructure.
             </p>
 
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              I have experience in full stack web development using React and
-              Node.js, computer networking, and IoT-based solutions. My background
-              includes internships, project management roles, and research
-              publications in smart farming IoT.
+              Experienced in building scalable web and IoT-based solutions
+              through internships, freelance projects, and project leadership roles
+              using technologies such as React.js, TypeScript, Node.js,
+              PostgreSQL, and Prisma ORM.
             </p>
 
             <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              I am highly motivated, adaptive, and eager to contribute to
-              technology-driven environments while continuously improving my
-              technical and problem-solving skills.
+              Published a Scopus-indexed international conference paper
+              (ICIC 2025) as First Author, demonstrating research excellence,
+              analytical thinking, and strong problem-solving skills in
+              software engineering and technology-driven environments.
             </p>
 
           </div>
