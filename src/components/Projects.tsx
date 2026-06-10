@@ -1,89 +1,99 @@
-import khaProject from "../assets/images/image3.png";
-import ktProject from "../assets/images/image2.png";
-import vandaProject from "../assets/images/VAnda.png";
+import khaProject from "../assets/Projects/Khadijah.png";
+import ktProject from "../assets/Projects/Bimbel.png";
+import vandaProject from "../assets/Projects/Vanda.png";
 import espProject from "../assets/images/Esp.png";
 import travelProject from "../assets/images/Travel.png";
 import pProject from "../assets/images/p.png";
 import paperProject from "../assets/images/paper.png";
-import aquoraProject from "../assets/images/image.png";
+import aquoraProject from "../assets/Projects/Aquora.png";
 
 const projects = [
+  {
+    img: aquoraProject,
+    title: "Aquora — Smart Water Monitoring System",
+    desc: "IoT-based water monitoring system with real-time dashboard, billing management, and environmental monitoring features.",
+    tech: "React • Node.js • PostgreSQL • IoT",
+    type: "Client Project",
+    github: "https://github.com/Chaerozi/Tugas-Akhir-Water.git",
+    live: "https://smartwaterfe.l-prepaid.com/",
+    publication: "",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+  {
+    img: khaProject,
+    title: "Khadijah Preschool Website",
+    desc: "Responsive preschool website with online registration, payment integration, and program information management.",
+    tech: "React • Tailwind CSS • Payment Gateway",
+    type: "Client Project",
+    github: "https://github.com/Chaerozi/Khadijah-Landing",
+    live: "https://khadijah-landing-stage.pacemodddd-dev.me/",
+    publication: "",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
+  {
+    img: ktProject,
+    title: "Rumah Sukses Tutoring Website",
+    desc: "Educational platform with online registration, program management, and responsive user experience.",
+    tech: "React • Node.js • MySQL",
+    type: "Client Project",
+    github: "https://github.com/Chaerozi/Bimbel",
+    live: "https://rumahsukses-stage.pacemodddd-dev.me/",
+    publication: "",
+    imageClass: "object-contain object-center scale-[0.92]",
+  },
   {
     img: espProject,
     title: "Smart Door Lock IoT System",
     desc: "ESP32-CAM–based smart door lock system with face recognition for secure and automated access control.",
     tech: "ESP32-CAM • IoT • Embedded System",
     type: "Client Project",
+    github: "",
+    live: "",
+    publication: "",
     imageClass: "object-contain object-center scale-[0.9]",
   },
-
-  {
-    img: aquoraProject,
-    title: "Aquora — Smart Water Monitoring System",
-    desc: "IoT-based water monitoring system with real-time dashboard and environmental monitoring features.",
-    tech: "IoT • Web Dashboard • Monitoring System",
-    type: "Client Project",
-    link: "https://github.com/Chaerozi/Tugas-Akhir-Water.git",
-    imageClass: "object-contain object-center scale-[0.92]",
-  },
-
-  {
-    img: khaProject,
-    title: "Khadijah Preschool Website",
-    desc: "Responsive preschool website with online registration and payment gateway integration.",
-    tech: "React • Tailwind • Payment Gateway",
-    type: "Client Project",
-    link: "https://github.com/Chaerozi/Khadijah-Landing",
-    imageClass: "object-contain object-center scale-[0.92]",
-  },
-
-  {
-    img: ktProject,
-    title: "Rumah Sukses Tutoring Website",
-    desc: "Tutoring center website with online registration and responsive user interface.",
-    tech: "React • Node.js • MySQL",
-    type: "Client Project",
-    link: "https://github.com/Chaerozi/Bimbel",
-    imageClass: "object-contain object-center scale-[0.92]",
-  },
-
   {
     img: vandaProject,
     title: "Vanda Dimension Properti",
-    desc: "Business landing page focused on modern UI design and company branding.",
-    tech: "React • TypeScript • Tailwind",
+    desc: "Company profile and property business landing page focused on modern branding and responsive design.",
+    tech: "React • TypeScript • Tailwind CSS",
     type: "Client Project",
-    link: "https://vanda-gules.vercel.app/",
+    github: "",
+    live: "https://vandaa.vercel.app/",
+    publication: "",
     imageClass: "object-contain object-center scale-[0.92]",
   },
-
   {
     img: travelProject,
     title: "Travel Kuy — Travel Booking App",
     desc: "Travel booking application with backend integration and database management.",
     tech: "Flutter • Backend • Database",
     type: "Academic Project",
-    link: "https://github.com/Chaerozi/APB",
+    github: "https://github.com/Chaerozi/APB",
+    live: "",
+    publication: "",
     imageClass: "object-contain object-center scale-[0.92]",
   },
-
   {
     img: pProject,
     title: "Registration & Landing Page System",
     desc: "Web-based registration system with frontend and backend integration.",
     tech: "Web App • Fullstack Development",
     type: "Academic Project",
-    link: "https://github.com/jonathanborta/projectproteinbaru.git",
+    github: "https://github.com/jonathanborta/projectproteinbaru.git",
+    live: "",
+    publication: "",
     imageClass: "object-contain object-center scale-[0.92]",
   },
-
   {
     img: paperProject,
     title: "Smart Farming ML Model",
-    desc: "Machine learning model for smart farming actuator optimization using IoT data analysis.",
+    desc: "Machine learning model for smart farming actuator optimization using IoT data analysis. Published as a Scopus-indexed conference paper and presented at ICIC 2025.",
     tech: "Python • Machine Learning • IoT",
     type: "Research Project",
-    link: "https://github.com/Chaerozi/notebook-smart_farming_model.ipynb",
+    github: "https://github.com/Chaerozi/notebook-smart_farming_model.ipynb",
+    live: "",
+    publication: "https://ieeexplore.ieee.org/document/11309530",
     imageClass: "object-contain object-center scale-[0.92]",
   },
 ];
@@ -95,7 +105,6 @@ const Projects = () => {
       className="relative py-24 bg-white dark:bg-black transition-colors"
     >
       <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
         <div className="max-w-3xl">
           <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-400">
             Projects
@@ -108,22 +117,18 @@ const Projects = () => {
           <div className="mt-4 w-12 h-[2px] bg-gray-900 dark:bg-white" />
         </div>
 
-        {/* Projects Grid */}
         <div className="mt-16 grid md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
               className="
-                group
-                overflow-hidden
-                rounded-3xl
+                group overflow-hidden rounded-3xl
                 border border-gray-200 dark:border-gray-800
                 bg-white dark:bg-neutral-950
                 transition duration-300
                 hover:-translate-y-1
               "
             >
-              {/* Image */}
               <div
                 className="
                   flex items-center justify-center
@@ -136,8 +141,7 @@ const Projects = () => {
                   src={project.img}
                   alt={project.title}
                   className={`
-                    w-full
-                    h-full
+                    w-full h-full
                     transition-transform duration-500
                     group-hover:scale-[1.02]
                     ${project.imageClass}
@@ -145,21 +149,16 @@ const Projects = () => {
                 />
               </div>
 
-              {/* Content */}
               <div className="p-6">
-                <div className="flex items-center justify-between gap-4">
-                  <span
-                    className="
-                      text-xs
-                      px-3 py-1
-                      rounded-full
-                      bg-gray-100 dark:bg-neutral-900
-                      text-gray-600 dark:text-gray-300
-                    "
-                  >
-                    {project.type}
-                  </span>
-                </div>
+                <span
+                  className="
+                    text-xs px-3 py-1 rounded-full
+                    bg-gray-100 dark:bg-neutral-900
+                    text-gray-600 dark:text-gray-300
+                  "
+                >
+                  {project.type}
+                </span>
 
                 <h3 className="mt-5 text-xl font-semibold text-gray-900 dark:text-white">
                   {project.title}
@@ -173,23 +172,69 @@ const Projects = () => {
                   {project.tech}
                 </p>
 
-                {project.link && (
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                      inline-flex items-center gap-2
-                      mt-6
-                      text-sm font-medium
-                      text-gray-900 dark:text-white
-                      hover:opacity-70
-                      transition
-                    "
-                  >
-                    View Project →
-                  </a>
-                )}
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        inline-flex items-center justify-center
+                        rounded-full
+                        border border-gray-900 dark:border-white
+                        px-4 py-2
+                        text-sm font-medium
+                        text-gray-900 dark:text-white
+                        hover:bg-gray-900 hover:text-white
+                        dark:hover:bg-white dark:hover:text-black
+                        transition
+                      "
+                    >
+                      Live Demo
+                    </a>
+                  )}
+
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        inline-flex items-center justify-center
+                        rounded-full
+                        bg-gray-900 dark:bg-white
+                        px-4 py-2
+                        text-sm font-medium
+                        text-white dark:text-black
+                        hover:opacity-80
+                        transition
+                      "
+                    >
+                      GitHub
+                    </a>
+                  )}
+
+                  {project.publication && (
+                    <a
+                      href={project.publication}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        inline-flex items-center justify-center
+                        rounded-full
+                        border border-blue-500
+                        px-4 py-2
+                        text-sm font-medium
+                        text-blue-600
+                        hover:bg-blue-500
+                        hover:text-white
+                        transition
+                      "
+                    >
+                      Publication
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
