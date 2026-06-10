@@ -14,7 +14,7 @@ const projects = [
     desc: "IoT-based water monitoring system with real-time dashboard, billing management, and environmental monitoring features.",
     tech: "React • Node.js • PostgreSQL • IoT",
     type: "Client Project",
-    github: "https://github.com/Chaerozi/Tugas-Akhir-Water.git",
+    github: "https://github.com/Chaerozi/TA",
     live: "https://smartwaterfe.l-prepaid.com/",
     publication: "",
     imageClass: "object-contain object-center scale-[0.92]",
