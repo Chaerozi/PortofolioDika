@@ -3,7 +3,7 @@ import logistic from "../assets/Organization/Logistik.jpeg";
 import Lead from "../assets/Organization/Lead_page-0001 (1).jpg";
 import visitCompany from "../assets/Organization/VisitCompany.jpg";
 import sindi from "../assets/Organization/Sindi.jpeg";
-import pengabdian from "../assets/Organization/pengabdian.jpeg";
+import pengabdian from "../assets/Organization/Pengabdian.jpeg";
 
 interface OrgExperience {
   role: string;
