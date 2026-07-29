@@ -1,110 +1,80 @@
 const skillGroups = [
   {
-    title: "Frontend",
+    code: "DEV",
+    title: "Development & Engineering",
     skills: [
       "React.js",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
-      "Responsive Web Design",
-    ],
-  },
-
-  {
-    title: "Backend",
-    skills: [
       "Node.js",
       "Express.js",
       "REST API",
       "MySQL",
       "PostgreSQL",
-    ],
-  },
-
-  {
-    title: "IoT & Networking",
-    skills: [
       "ESP32",
       "ESP32-CAM",
-      "IoT Development",
+      "Face Recognition",
+      "Python",
+      "Machine Learning",
       "Computer Networking",
       "MikroTik RouterOS",
       "Cisco Packet Tracer",
     ],
   },
-
   {
+    code: "TL",
     title: "Tools",
-    skills: [
-      "Git",
-      "GitHub",
-      "Postman",
-      "Figma",
-      "Visual Studio Code",
-    ],
+    skills: ["Git", "GitHub", "Postman", "Figma", "VS Code"],
   },
-
   {
+    code: "SOFT",
     title: "Soft Skills",
-    skills: [
-      "Communication",
-      "Leadership",
-      "Problem Solving",
-      "Team Collaboration",
-    ],
+    skills: ["Communication", "Leadership", "Problem Solving", "Team Collaboration"],
   },
 ];
 
 const Skills = () => {
   return (
-    <section
-      id="skills"
-      className="relative py-24 bg-white dark:bg-black transition-colors"
-    >
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <div className="max-w-3xl">
-          <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-400">
+    <section id="skills" className="bg-white py-28 dark:bg-black transition-colors">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-14 flex items-baseline justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
+          <h2 className="text-[1.75rem] font-semibold tracking-tight text-neutral-900 dark:text-white">
             Skills
-          </span>
-
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-            Technical Skills & Tools
           </h2>
-
-          <div className="mt-4 w-12 h-[2px] bg-gray-900 dark:bg-white" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-600">
+            {skillGroups.length} areas
+          </span>
         </div>
 
-        {/* Skills Grid */}
-        <div className="mt-16 grid md:grid-cols-2 gap-8">
-          {skillGroups.map((group, index) => (
+        <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
+          {skillGroups.map((group) => (
             <div
-              key={index}
-              className="
-                rounded-2xl
-                border border-gray-200 dark:border-gray-800
-                p-6
-              "
+              key={group.code}
+              className="grid grid-cols-[3.5rem_1fr] items-baseline gap-x-10 gap-y-2 py-6 sm:grid-cols-[8rem_1fr]"
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {group.title}
-              </h3>
+              <span className="font-mono text-[11px] tracking-widest text-indigo-600/70 dark:text-indigo-400/70">
+                {group.code}
+              </span>
 
-              <div className="mt-5 flex flex-wrap gap-3">
-                {group.skills.map((skill, i) => (
-                  <span
-                    key={i}
-                    className="
-                      px-4 py-2
-                      text-sm
-                      rounded-full
-                      bg-gray-100 dark:bg-neutral-900
-                      text-gray-700 dark:text-gray-300
-                    "
-                  >
-                    {skill}
-                  </span>
-                ))}
+              <div className="max-w-2xl">
+                <h3 className="mb-2 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                  {group.title}
+                </h3>
+                <p className="text-[15px] leading-relaxed text-neutral-800 dark:text-neutral-200">
+                  {group.skills.map((skill, i) => (
+                    <span key={skill}>
+                      <span className="cursor-default transition-colors hover:text-neutral-950 dark:hover:text-white">
+                        {skill}
+                      </span>
+                      {i < group.skills.length - 1 && (
+                        <span className="mx-2 text-neutral-300 dark:text-neutral-700">
+                          ·
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                </p>
               </div>
             </div>
           ))}

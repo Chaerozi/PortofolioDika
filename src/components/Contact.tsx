@@ -20,9 +20,6 @@ const Contact = () => {
           Get In Touch
         </h2>
 
-        {/* Divider */}
-        <div className="mt-4 mx-auto w-14 h-[2px] bg-gray-900 dark:bg-white" />
-
         {/* Subtitle */}
         <p className="mt-6 text-lg text-gray-600 dark:text-gray-300">
           Feel free to reach out for opportunities or collaborations

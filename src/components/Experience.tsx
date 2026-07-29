@@ -1,46 +1,52 @@
 const experiences = [
   {
-    role: "First Author & Presenter",
-    company: "ICIC 2025 Scientific Publication",
-    date: "Mar 2026 - Oct 2026",
+    role: "Full-Stack Developer Intern",
+    company: "PT Agra Wijaya Spice",
+    date: "Jul 2026 – Jul 2026",
     description:
-      "Published and presented research on ensemble voting methods for improving MPC reliability in greenhouse smart farming IoT systems.",
+      "Corporate website for an Indonesian spice company featuring a modern company profile, product showcase, and responsive user experience to strengthen the company's digital presence.",
+  },
+  {
+    role: "First Author & Presenter",
+    company: "ICIC 2025",
+    date: "Mar 2025 – Oct 2025",
+    description:
+      "Presented a research paper on ensemble voting for MPC reliability in greenhouse IoT systems, later indexed by Scopus.",
   },
   {
     role: "IoT Engineer Intern",
-    company:
-      "Department of Communication and Informatics of West Java Province",
-    date: "Jul 2025 - Aug 2025",
+    company: "Dinas Kominfo Jawa Barat",
+    date: "Jul 2025 – Aug 2025",
     description:
-      "Built an ESP32-CAM smart door lock system with face recognition for automated office access and security testing.",
+      "Built an ESP32-CAM door lock with face recognition and tested it for office access control.",
   },
   {
     role: "Web Developer",
-    company: "Aquora Smart Water Monitoring System",
-    date: "Mar 2026 - Apr 2026",
+    company: "Aquora Smart Water Monitoring",
+    date: "Mar 2026 – Apr 2026",
     description:
-      "Developed a real-time monitoring dashboard for water usage and environmental data visualization.",
+      "Built the dashboard that shows water usage and environmental data in real time.",
   },
   {
     role: "Web Developer",
     company: "Khadijah Islamic Preschool",
-    date: "Jan 2025 - Feb 2026",
+    date: "Jan 2025 – Feb 2026",
     description:
-      "Developed a responsive landing page and online registration system for better accessibility.",
+      "Rebuilt the school's landing page and added an online registration flow.",
   },
   {
     role: "Project Manager Intern",
     company: "Bimbel Rumah Sukses",
-    date: "Sep 2024 - Jan 2025",
+    date: "Sep 2025 – Jan 2026",
     description:
-      "Managed the development of a registration system and coordinated project timelines.",
+      "Managed the registration system build and kept the project on schedule.",
   },
   {
     role: "IT Support Intern",
     company: "PT Mabito Karya Indonesia",
-    date: "Jan 2021 - Jun 2021",
+    date: "Jan 2021 – Jun 2021",
     description:
-      "Handled laptop troubleshooting, OS installation, hardware repairs, and technical support.",
+      "Handled day-to-day troubleshooting, OS installs, and hardware repairs.",
   },
 ];
 
@@ -48,48 +54,41 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="relative py-24 bg-white dark:bg-black transition-colors"
+      className="bg-white py-28 dark:bg-black transition-colors"
     >
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Heading */}
-        <div className="max-w-3xl">
-          <span className="text-sm font-medium tracking-[0.2em] uppercase text-gray-400">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-14 flex items-baseline justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
+          <h2 className="text-[1.75rem] font-semibold tracking-tight text-neutral-900 dark:text-white">
             Experience
-          </span>
-
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-            Professional Experience
           </h2>
-
-          <div className="mt-4 w-12 h-[2px] bg-gray-900 dark:bg-white" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-600">
+            {experiences.length} roles
+          </span>
         </div>
 
-        {/* Experience List */}
-        <div className="mt-16 space-y-10">
-          {experiences.map((item, index) => (
+        <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
+          {experiences.map((item) => (
             <div
-              key={index}
-              className="pb-10 border-b border-gray-200 dark:border-gray-800"
+              key={`${item.company}-${item.date}`}
+              className="grid grid-cols-1 gap-x-10 gap-y-2 py-7 sm:grid-cols-[8rem_1fr]"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    {item.role}
-                  </h3>
+              <span className="font-mono text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600">
+                {item.date}
+              </span>
 
-                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              <div className="max-w-2xl">
+                <h3 className="font-medium text-neutral-900 dark:text-white">
+                  {item.role}
+                  <span className="text-neutral-300 dark:text-neutral-700"> · </span>
+                  <span className="font-normal text-indigo-600/80 dark:text-indigo-400/80">
                     {item.company}
-                  </p>
-                </div>
+                  </span>
+                </h3>
 
-                <span className="text-sm text-gray-400 whitespace-nowrap">
-                  {item.date}
-                </span>
+                <p className="mt-2 text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400">
+                  {item.description}
+                </p>
               </div>
-
-              <p className="mt-4 max-w-3xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                {item.description}
-              </p>
             </div>
           ))}
         </div>

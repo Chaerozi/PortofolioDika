@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Experience from "./components/Experience";
+import Organization from "./components/Organization";
 import Projects from "./components/Projects";
 import Certificates from "./components/Certificates";
 import Footer from "./components/Footer";
@@ -16,10 +17,11 @@ function App() {
       <About />
       <Skills />
       <Experience />
+      <Organization />
       <Projects />
-      <Certificates/>
-      <Footer/>
-      <Contact/>
+      <Certificates />
+      <Footer />
+      <Contact />
     </>
   );
 }

@@ -52,8 +52,6 @@ const Hero = () => {
               <span className="text-gray-800 dark:text-gray-300">Septian</span>
             </h1>
 
-            <div className="mt-6 w-14 h-[2px] bg-gray-900 dark:bg-white mx-auto lg:mx-0" />
-
             <p className="mt-8 text-base md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
               Information Technology Graduate · Web Developer · Network & IoT Enthusiast
             </p>
