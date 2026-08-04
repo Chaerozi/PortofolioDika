@@ -1,6 +1,6 @@
 const experiences = [
   {
-    role: "Full-Stack Developer Intern",
+    role: "Full-Stack Developer",
     company: "PT Agra Wijaya Spice",
     date: "Jul 2026 – Jul 2026",
     description:
