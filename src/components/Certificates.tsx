@@ -28,7 +28,7 @@ interface Certificate {
 
 const certificates: Certificate[] = [
   { img: Conference, label: "Conference", type: "International" },
-  { img: Jabar, label: "Internship", type: "National" },
+  { img: Jabar, label: "West Java", type: "National" },
   { img: Toefl, label: "TOEFL ITP", type: "International" },
   { img: Backend, label: "Basic Backend", type: "Training" },
   { img: Frontend, label: "Basic Frontend", type: "Training" },
