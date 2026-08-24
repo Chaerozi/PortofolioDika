@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sections = [
   { id: "about", label: "About" },
@@ -22,23 +23,33 @@ const Navbar = () => {
     }
   }, []);
 
+  // FIX: sebelumnya section terakhir (Contact) tidak pernah aktif karena kondisi
+  // "scrollY < top + height" gagal terpenuhi saat user sudah mentok di paling bawah halaman
+  // (tidak bisa scroll melewati batas dokumen walau section Contact sudah kelihatan penuh).
+  // Solusi: cari section terakhir yang `offsetTop`-nya sudah terlewati, dan kalau
+  // posisi scroll sudah mendekati paling bawah dokumen, langsung set Contact sebagai aktif.
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY + 120;
+      const scrollPos = window.scrollY + 150;
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
 
-      sections.forEach((section) => {
+      if (nearBottom) {
+        setActive(sections[sections.length - 1].id);
+        return;
+      }
+
+      let current = sections[0].id;
+      for (const section of sections) {
         const el = document.getElementById(section.id);
-        if (!el) return;
-
-        const top = el.offsetTop;
-        const height = el.offsetHeight;
-
-        if (scrollY >= top && scrollY < top + height) {
-          setActive(section.id);
+        if (el && el.offsetTop <= scrollPos) {
+          current = section.id;
         }
-      });
+      }
+      setActive(current);
     };
 
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -64,125 +75,162 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-black/70 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+    <>
+      {/* Overlay — muncul di belakang pill saat menu mobile terbuka.
+          Tap di luar area menu untuk menutup, sekaligus fokus perhatian ke menu. */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setOpen(false)}
+            className="md:hidden fixed inset-0 z-40 bg-black/10 backdrop-blur-[2px]"
+          />
+        )}
+      </AnimatePresence>
 
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
+      {/*
+        Container "Dynamic Island": pill mengambang, mengecil di desktop
+        (isinya menu horizontal + sliding highlight), dan bisa "melebar ke bawah"
+        di mobile saat menu dibuka — layout animasi otomatis pakai `layout` dari framer-motion,
+        jadi transisi tinggi/lebarnya halus seperti Dynamic Island di iPhone.
+      */}
+      <motion.div
+        layout
+        transition={{ type: "spring", stiffness: 300, damping: 28 }}
+        className={`${open ? "w-[250px]" : "w-full max-w-fit"} md:max-w-fit md:w-auto rounded-[24px] ring-1 ring-black/[0.06] dark:ring-white/[0.08]
+        bg-white/75 dark:bg-neutral-900/75 backdrop-blur-2xl backdrop-saturate-150
+        shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_28px_-8px_rgba(0,0,0,0.12)]
+        dark:shadow-[0_1px_2px_rgba(0,0,0,0.2),0_12px_28px_-8px_rgba(0,0,0,0.5)]
+        overflow-hidden relative z-50`}
+      >
+        {/* Baris utama — selalu terlihat */}
+        <div className="flex items-center gap-1.5 px-2.5 py-2.5 md:px-3">
+          {/* Monogram — ring tipis, terasa seperti logo brand kecil */}
+          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-[13px] font-semibold tracking-wide ring-1 ring-black/5 dark:ring-white/10 shrink-0">
+            AR
+          </div>
 
-        {/* Logo */}
-        <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-          Ardika R. Septian
-        </h1>
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-
-          <ul className="flex items-center gap-8 font-medium">
+          {/* Menu desktop — segmented pill dengan highlight yang bergeser */}
+          <ul className="hidden md:flex items-center gap-1 ml-2 relative">
             {sections.map((item) => (
               <li
                 key={item.id}
                 onClick={() => scrollTo(item.id)}
-                className={`cursor-pointer relative transition ${
-                  active === item.id
-                    ? "text-black dark:text-white after:w-full"
-                    : "text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white"
-                } after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-black dark:after:bg-white after:transition-all after:w-0`}
+                className="relative px-5 py-2.5 text-sm font-medium tracking-tight cursor-pointer select-none rounded-full transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
               >
-                {item.label}
+                {active === item.id && (
+                  <motion.span
+                    layoutId="navActivePill"
+                    className="absolute inset-0 rounded-full bg-gradient-to-b from-zinc-800 to-zinc-950 dark:from-white dark:to-neutral-100 shadow-[0_2px_8px_rgba(0,0,0,0.25)]"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <span
+                  className={`relative z-10 transition-colors ${
+                    active === item.id
+                      ? "text-white dark:text-zinc-900"
+                      : "text-zinc-500 dark:text-zinc-400"
+                  }`}
+                >
+                  {item.label}
+                </span>
               </li>
             ))}
           </ul>
 
-          {/* Toggle */}
+          <div className="hidden md:block w-px h-6 bg-zinc-200/80 dark:bg-zinc-700/60 mx-2" />
+
           <ThemeToggle dark={dark} toggleTheme={toggleTheme} />
 
-        </div>
-
-        {/* Mobile Right */}
-        <div className="flex items-center gap-4 md:hidden">
-
-          {/* Toggle Mobile */}
-          <ThemeToggle dark={dark} toggleTheme={toggleTheme} />
-
-          {/* Hamburger */}
+          {/* Tombol menu — hanya mobile */}
           <button
             onClick={() => setOpen(!open)}
-            className="flex flex-col space-y-1.5"
+            aria-label="Menu"
+            className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full ml-0.5 shrink-0 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
           >
-            <span className={`w-6 h-[2px] bg-black dark:bg-white transition ${open && "rotate-45 translate-y-[7px]"}`} />
-            <span className={`w-6 h-[2px] bg-black dark:bg-white transition ${open && "opacity-0"}`} />
-            <span className={`w-6 h-[2px] bg-black dark:bg-white transition ${open && "-rotate-45 -translate-y-[7px]"}`} />
+            <span
+              className={`block w-4 h-[1.5px] bg-zinc-900 dark:bg-white transition-transform duration-300 ${
+                open ? "rotate-45 translate-y-[3px]" : ""
+              }`}
+            />
+            <span
+              className={`block w-4 h-[1.5px] bg-zinc-900 dark:bg-white mt-[5px] transition-transform duration-300 ${
+                open ? "-rotate-45 -translate-y-[3px]" : ""
+              }`}
+            />
           </button>
-
         </div>
 
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden bg-white dark:bg-black transition-all duration-300 ${
-          open ? "max-h-96 opacity-100 shadow-lg" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
-      >
-        <ul className="flex flex-col px-6 py-6 gap-5 font-medium">
-
-          {sections.map((item) => (
-            <li
-              key={item.id}
-              onClick={() => scrollTo(item.id)}
-              className={`cursor-pointer ${
-                active === item.id
-                  ? "text-black dark:text-white"
-                  : "text-gray-500 dark:text-gray-400"
-              }`}
+        {/* Menu mobile — muncul di dalam pill yang sama, container melebar otomatis (layout) */}
+        <AnimatePresence>
+          {open && (
+            <motion.ul
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="md:hidden flex flex-col px-2.5 pb-2.5 pt-1 gap-0.5 border-t border-black/[0.04] dark:border-white/[0.06] mt-1"
             >
-              {item.label}
-            </li>
-          ))}
-
-        </ul>
-      </div>
-
-    </nav>
+              {sections.map((item, i) => (
+                <motion.li
+                  key={item.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2, delay: i * 0.04 }}
+                  onClick={() => scrollTo(item.id)}
+                  className={`flex items-center gap-2.5 px-3.5 py-3 rounded-xl text-[14px] font-medium tracking-tight cursor-pointer transition-colors ${
+                    active === item.id
+                      ? "bg-zinc-900 dark:bg-white text-white dark:text-zinc-900"
+                      : "text-zinc-500 dark:text-zinc-400 active:bg-black/[0.04] dark:active:bg-white/[0.06]"
+                  }`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                      active === item.id
+                        ? "bg-white dark:bg-zinc-900"
+                        : "bg-zinc-300 dark:bg-zinc-600"
+                    }`}
+                  />
+                  {item.label}
+                </motion.li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </div>
+    </>
   );
 };
 
-const ThemeToggle = ({ dark, toggleTheme }: any) => {
+const ThemeToggle = ({ dark, toggleTheme }: { dark: boolean; toggleTheme: () => void }) => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative w-16 h-9 flex items-center rounded-full bg-gray-200 dark:bg-neutral-800 px-1 transition"
+      aria-label="Toggle theme"
+      className="relative w-12 h-7 flex items-center rounded-full bg-zinc-200/70 dark:bg-zinc-700/60 px-[3px] transition-colors shrink-0"
     >
-
-      {/* Sun */}
-      <svg
-        className="absolute left-3 w-4 h-4 text-gray-500"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        viewBox="0 0 24 24"
+      <motion.div
+        layout
+        transition={{ type: "spring", stiffness: 500, damping: 32 }}
+        className="w-[22px] h-[22px] rounded-full bg-white dark:bg-zinc-900 shadow-sm flex items-center justify-center"
+        style={{ marginLeft: dark ? "auto" : 0 }}
       >
-        <circle cx="12" cy="12" r="5" />
-        <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
-      </svg>
-
-      {/* Slider */}
-      <div
-        className={`w-7 h-7 rounded-full bg-white dark:bg-neutral-700 shadow-md flex items-center justify-center transform transition duration-300 ${
-          dark ? "translate-x-7" : "translate-x-0"
-        }`}
-      >
-        {/* Moon */}
-        <svg
-          className="w-4 h-4 text-gray-600 dark:text-white"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          viewBox="0 0 24 24"
-        >
-          <path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" />
-        </svg>
-      </div>
-
+        {dark ? (
+          <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z" />
+          </svg>
+        ) : (
+          <svg className="w-3.5 h-3.5 text-neutral-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+        )}
+      </motion.div>
     </button>
   );
 };
