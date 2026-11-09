@@ -96,7 +96,7 @@ const Experience = () => {
 
         {/* List Layout (Tanpa Garis Vertikal & Titik) */}
         <div className="flex flex-col">
-          {groups.map((group, groupIndex) => (
+          {groups.map((group) => (
             <div
               key={group.year}
               className="grid grid-cols-1 md:grid-cols-[10rem_1fr] lg:grid-cols-[16rem_1fr] gap-8 md:gap-12 py-12 md:py-16 border-b border-gray-200 dark:border-white/10 last:border-0"
