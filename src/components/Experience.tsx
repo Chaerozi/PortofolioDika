@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const experiences = [
   {
@@ -52,7 +53,7 @@ const experiences = [
   },
 ];
 
-// Group consecutive entries by the year they started (list is already newest → oldest)
+// Group consecutive entries by the year they started
 const getStartYear = (dateRange: string) => {
   const firstPart = dateRange.split("–")[0].trim();
   return firstPart.split(" ").pop() as string;
@@ -74,56 +75,94 @@ const groups = experiences.reduce<{ year: string; items: typeof experiences }[]>
 
 const Experience = () => {
   return (
-    <section id="experience" className="bg-white py-16 md:py-20 dark:bg-black transition-colors">
+    <section id="experience" className="bg-[#FAFAFA] py-24 md:py-32 dark:bg-[#0A0A0A] transition-colors duration-500">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-12 flex items-baseline justify-between border-b border-neutral-200 pb-3 dark:border-neutral-800">
-          <h2 className="text-[1.6rem] font-semibold tracking-tight text-neutral-900 dark:text-white">
-            Experience
+        
+        {/* Editorial Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-16 md:mb-24 flex items-end justify-between border-b border-gray-900 dark:border-white pb-6"
+        >
+          <h2 className="text-4xl md:text-6xl font-serif tracking-tight text-gray-900 dark:text-white leading-none">
+            Experience.
           </h2>
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-400 dark:text-neutral-600">
+          <span className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 pb-2">
             {experiences.length} roles
           </span>
-        </div>
+        </motion.div>
 
-        <div className="space-y-12 md:space-y-16">
-          {groups.map((group) => (
-            <motion.div
+        {/* List Layout (Tanpa Garis Vertikal & Titik) */}
+        <div className="flex flex-col">
+          {groups.map((group, groupIndex) => (
+            <div
               key={group.year}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-[7rem_1fr] sm:gap-10"
+              className="grid grid-cols-1 md:grid-cols-[10rem_1fr] lg:grid-cols-[16rem_1fr] gap-8 md:gap-12 py-12 md:py-16 border-b border-gray-200 dark:border-white/10 last:border-0"
             >
-              <div className="select-none text-4xl font-semibold text-neutral-200 dark:text-neutral-800 md:text-5xl">
-                {group.year}
+              
+              {/* Sticky Year - Super Besar dan Elegan */}
+              <div className="relative">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="md:sticky md:top-32"
+                >
+                  <h3 className="select-none text-6xl md:text-7xl lg:text-8xl font-serif text-gray-200 dark:text-[#1a1a1a] tracking-tighter leading-none">
+                    {group.year}
+                  </h3>
+                </motion.div>
               </div>
 
-              <div className="space-y-8">
-                {group.items.map((item) => (
-                  <div key={`${item.company}-${item.date}`}>
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                      <h3 className="font-medium text-neutral-900 dark:text-white">
+              {/* Items / Roles - Clean Editorial List */}
+              <div className="flex flex-col">
+                {group.items.map((item, index) => (
+                  <motion.div 
+                    key={`${item.company}-${item.date}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.4 }}
+                    transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                    className="group relative flex flex-col md:flex-row md:items-start justify-between gap-y-4 gap-x-8 py-10 border-b border-gray-200 dark:border-white/5 last:border-0 transition-colors hover:border-gray-900 dark:hover:border-white/40"
+                  >
+                    
+                    {/* Role & Description */}
+                    <div className="flex-1 max-w-2xl">
+                      {/* Efek Hover Text Bergeser + Icon Muncul */}
+                      <h4 className="text-xl md:text-2xl font-serif text-gray-900 dark:text-[#e8e4d9] flex items-center gap-3 transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-x-2">
                         {item.role}
-                        <span className="text-neutral-300 dark:text-neutral-700"> · </span>
-                        <span className="font-normal text-indigo-600/80 dark:text-indigo-400/80">
+                        <FiArrowUpRight className="text-gray-400 dark:text-gray-500 opacity-0 -translate-x-4 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:opacity-100 group-hover:translate-x-0" />
+                      </h4>
+                      
+                      <div className="mt-2 md:mt-3 mb-4">
+                        <span className="inline-block text-sm font-medium text-gray-600 dark:text-gray-400">
                           {item.company}
                         </span>
-                      </h3>
-                      <span className="font-mono text-[11px] uppercase tracking-widest text-neutral-400 dark:text-neutral-600">
+                      </div>
+
+                      <p className="text-[14px] md:text-[15px] leading-relaxed text-gray-500 dark:text-gray-400 transition-colors duration-300 group-hover:text-gray-800 dark:group-hover:text-gray-300">
+                        {item.description}
+                      </p>
+                    </div>
+
+                    {/* Date - Aligned Right */}
+                    <div className="shrink-0 md:text-right mt-1">
+                      <span className="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.15em] text-gray-400 dark:text-gray-600">
                         {item.date}
                       </span>
                     </div>
 
-                    <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-400">
-                      {item.description}
-                    </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </motion.div>
+              
+            </div>
           ))}
         </div>
+        
       </div>
     </section>
   );
