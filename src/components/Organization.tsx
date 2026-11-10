@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import Kabinet from "../assets/Organization/Kabinet.jpeg";
 import logistic from "../assets/Organization/Logistik.jpeg";
@@ -67,114 +67,175 @@ const experiences: OrgExperience[] = [
   },
 ];
 
-const Organization = () => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
+const TOTAL = experiences.length;
+const VISIBLE_RANGE = 2;
 
-  const scrollByCard = (direction: "left" | "right") => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    const amount = el.clientWidth * 0.85;
-    el.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" });
-  };
+const navButton =
+  "group flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 dark:border-white/20 bg-transparent hover:bg-gray-900 hover:border-gray-900 dark:hover:bg-white dark:hover:border-white transition-colors duration-300 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900/40 dark:focus-visible:ring-white/50";
+
+const navIcon =
+  "text-xl text-gray-600 dark:text-gray-400 group-hover:text-white dark:group-hover:text-black transition-colors";
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const Organization = () => {
+  const [currentIndex, setCurrentIndex] = useState(2);
+
+  const handlePrev = () => setCurrentIndex((i) => (i === 0 ? TOTAL - 1 : i - 1));
+  const handleNext = () => setCurrentIndex((i) => (i === TOTAL - 1 ? 0 : i + 1));
+
+  const currentItem = experiences[currentIndex];
 
   return (
-    <section id="organization" className="py-24 bg-[#FAFAFA] dark:bg-[#0A0A0A] transition-colors duration-500">
-      <div className="max-w-6xl mx-auto px-6">
-        
-        {/* Header Section */}
-        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <MotionConfig reducedMotion="user">
+      <section
+        id="organization"
+        className="relative py-24 md:py-32 bg-[#FAFAFC] dark:bg-[#050505] transition-colors duration-700 overflow-hidden select-none"
+      >
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-2xl"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-900 dark:border-white/20 pb-6"
           >
-            <h2 className="text-3xl md:text-4xl font-serif text-gray-900 dark:text-white tracking-tight">
-              Organization & Volunteer
-            </h2>
-            <p className="mt-3 text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
-              Experiences outside the classroom building leadership, teamwork, and community impact. Swipe to explore.
-            </p>
+            <div className="max-w-2xl">
+              <h2 className="text-4xl md:text-6xl font-serif text-gray-900 dark:text-white tracking-tight leading-none">
+                Organization.
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-gray-500 dark:text-gray-400">
+                Community leadership and collaborative experiences outside the classroom.
+              </p>
+            </div>
+            <div className="text-left md:text-right">
+              <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-gray-900 dark:text-white font-semibold">
+                // Vol. 01
+              </span>
+            </div>
           </motion.div>
 
-          {/* Navigation Buttons */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:flex gap-3"
-          >
-            <button
-              onClick={() => scrollByCard("left")}
-              aria-label="Scroll left"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-300 dark:border-neutral-800 text-gray-500 dark:text-neutral-400 hover:text-gray-900 hover:border-gray-900 dark:hover:text-white dark:hover:border-white transition-all"
-            >
-              <FiChevronLeft className="text-lg" />
-            </button>
-            <button
-              onClick={() => scrollByCard("right")}
-              aria-label="Scroll right"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-300 dark:border-neutral-800 text-gray-500 dark:text-neutral-400 hover:text-gray-900 hover:border-gray-900 dark:hover:text-white dark:hover:border-white transition-all"
-            >
-              <FiChevronRight className="text-lg" />
-            </button>
-          </motion.div>
-        </div>
+          {/* Curved Card Arc Showcase */}
+          <div className="relative h-[300px] sm:h-[360px] md:h-[420px] w-full flex items-center justify-center my-10">
+            {experiences.map((exp, index) => {
+              // Offset terpendek dengan wrap-around (carousel melingkar)
+              let offset = index - currentIndex;
+              if (offset > TOTAL / 2) offset -= TOTAL;
+              if (offset < -TOTAL / 2) offset += TOTAL;
 
-        {/* Carousel / Scroller */}
-        <div className="relative -mx-6 px-6 md:mx-0 md:px-0">
-          <div
-            ref={scrollerRef}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-4 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]"
-          >
-            {experiences.map((item, index) => (
+              const distance = Math.abs(offset);
+              if (distance > VISIBLE_RANGE) return null;
+
+              const isCenter = offset === 0;
+
+              return (
+                <motion.button
+                  key={`${exp.org}-${exp.role}`}
+                  type="button"
+                  onClick={() => setCurrentIndex(index)}
+                  aria-label={isCenter ? exp.role : `Show ${exp.role}`}
+                  aria-current={isCenter}
+                  initial={false}
+                  animate={{
+                    x: offset * 160,
+                    y: offset * offset * 22,
+                    rotate: offset * 8,
+                    scale: 1 - distance * 0.12,
+                    zIndex: 30 - distance * 10,
+                    opacity: 1 - distance * 0.3,
+                  }}
+                  transition={{ type: "spring", stiffness: 220, damping: 30, mass: 0.8 }}
+                  // Tidak ada transition-all / class opacity di sini: keduanya
+                  // bentrok dengan animasi framer-motion (transform & opacity).
+                  className={`absolute block p-0 w-[190px] sm:w-[240px] md:w-[280px] h-[260px] sm:h-[310px] md:h-[360px] rounded-[24px] overflow-hidden will-change-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-900/40 dark:focus-visible:ring-white/50 ${
+                    isCenter
+                      ? "cursor-default ring-1 ring-gray-900/10 dark:ring-white/30 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] dark:shadow-[0_30px_60px_-15px_rgba(255,255,255,0.05)]"
+                      : "cursor-pointer grayscale contrast-125 hover:grayscale-0"
+                  }`}
+                >
+                  <img
+                    src={exp.photos[0]}
+                    alt=""
+                    decoding="async"
+                    draggable={false}
+                    className="w-full h-full object-cover pointer-events-none"
+                  />
+
+                  {/* Glossy / Glass Overlay (hanya kartu tengah) */}
+                  {isCenter && (
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                      <div className="absolute top-0 left-0 right-0 h-1/3 bg-gradient-to-b from-white/20 to-transparent opacity-30 mix-blend-overlay" />
+
+                      <div className="absolute bottom-5 left-5 right-5 text-left">
+                        <div className="backdrop-blur-md bg-white/10 dark:bg-black/20 border border-white/20 rounded-xl p-3">
+                          <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-300 block truncate mb-1">
+                            {exp.org}
+                          </span>
+                          <span className="text-sm sm:text-base font-serif text-white line-clamp-1 leading-snug block">
+                            {exp.role}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Details & Navigation */}
+          <div className="mt-12 flex flex-col items-center text-center max-w-2xl mx-auto">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-                className="group snap-start shrink-0 w-[280px] sm:w-[340px] flex flex-col rounded-2xl bg-white dark:bg-[#111111] border border-gray-200 dark:border-white/5 overflow-hidden hover:shadow-xl hover:shadow-gray-200/50 dark:hover:shadow-none transition-all duration-500"
+                key={currentIndex}
+                initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                aria-live="polite"
+                className="flex flex-col items-center"
               >
-                {/* Image Wrapper with subtle scale on hover */}
-                {item.photos.length > 0 && (
-                  <div className="relative h-48 w-full overflow-hidden bg-gray-100 dark:bg-neutral-900">
-                    <img
-                      src={item.photos[0]}
-                      alt={`${item.role} documentation`}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
-                    />
-                  </div>
-                )}
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif text-gray-900 dark:text-white leading-tight mb-3">
+                  {currentItem.role}
+                </h3>
 
-                <div className="p-6 md:p-8 flex flex-col flex-grow">
-                  <div className="flex items-center justify-between gap-4 mb-4">
-                    <span className="inline-flex items-center text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400">
-                      {item.org}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg md:text-xl font-serif text-gray-900 dark:text-[#e8e4d9] leading-snug mb-2">
-                    {item.role}
-                  </h3>
-
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
-                    {item.date}
-                  </p>
-
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mt-auto">
-                    {item.description}
-                  </p>
+                <div className="flex items-center gap-3 font-mono text-[10px] md:text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-5">
+                  <span className="font-semibold text-gray-900 dark:text-white">
+                    {currentItem.org}
+                  </span>
+                  <span className="opacity-30">|</span>
+                  <span>{currentItem.date}</span>
                 </div>
+
+                <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg">
+                  {currentItem.description}
+                </p>
               </motion.div>
-            ))}
+            </AnimatePresence>
+
+            <div className="mt-10 flex items-center justify-center gap-6">
+              <button type="button" onClick={handlePrev} aria-label="Previous card" className={navButton}>
+                <FiChevronLeft className={navIcon} />
+              </button>
+
+              <div className="font-mono text-xs tracking-[0.3em] px-2 flex items-center gap-2">
+                <span className="text-gray-900 dark:text-white font-semibold">
+                  {pad(currentIndex + 1)}
+                </span>
+                <span className="text-gray-400 dark:text-gray-600">/</span>
+                <span className="text-gray-400 dark:text-gray-600">{pad(TOTAL)}</span>
+              </div>
+
+              <button type="button" onClick={handleNext} aria-label="Next card" className={navButton}>
+                <FiChevronRight className={navIcon} />
+              </button>
+            </div>
           </div>
         </div>
-        
-      </div>
-    </section>
+      </section>
+    </MotionConfig>
   );
 };
 
