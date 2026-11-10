@@ -3,6 +3,13 @@ import { FiArrowUpRight } from "react-icons/fi";
 
 const experiences = [
   {
+    role: "Network Engineer",
+    company: "Media Telekomunikasi Mandiri",
+    date: "Sep 2026 – Present",
+    description:
+      "Responsible for managing, configuring, and maintaining enterprise network infrastructure to ensure high availability and robust security across operations.",
+  },
+  {
     role: "Full-Stack Developer",
     company: "PT Agra Wijaya Spice",
     date: "Jul 2026 – Jul 2026",
