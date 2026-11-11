@@ -33,16 +33,19 @@ const Hero = () => {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end start"],
   });
 
-  const photoScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.02, 0.95]);
-  const photoOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.6, 1, 1, 0.5]);
+  // Efek parallax halus saat discroll ke bawah menuju section About
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const bgTextY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const sectionOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.3]);
 
   return (
-    <section
+    <motion.section
       id="hero"
       ref={sectionRef}
+      style={{ opacity: sectionOpacity }}
       className="relative overflow-hidden bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-500 py-6 md:py-10 flex flex-col justify-between select-none min-h-[90vh]"
     >
       {/* --- ORNAMEN CETAK MAJALAH: CORNER CROP MARKS --- */}
@@ -72,41 +75,47 @@ const Hero = () => {
 
       <div className="relative z-10 max-w-6xl mx-auto px-8 w-full flex flex-col flex-1 justify-between">
 
-        {/* Top Header Row */}
-        <div className="flex items-center justify-between text-[11px] sm:text-xs uppercase tracking-[0.25em] font-mono text-gray-500 dark:text-gray-400">
+        {/* Top Header Row dengan Fade-in */}
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center justify-between text-[11px] sm:text-xs uppercase tracking-[0.25em] font-mono text-gray-500 dark:text-gray-400"
+        >
           <span>IT SPECIALIST // 2026</span>
           <span className="tracking-[0.3em] font-semibold">BANDUNG, ID</span>
-        </div>
+        </motion.div>
 
         {/* --- MAGAZINE HERO STAGE --- */}
         <div className="relative my-auto flex items-center justify-center py-4">
           
           <div className="relative w-full max-w-5xl h-[420px] sm:h-[480px] md:h-[560px] flex items-center justify-center">
 
-            {/* --- ORNAMEN ASSET LOVE SVG (Diperjelas & Diposisikan Pas) --- */}
+            {/* --- ORNAMEN ASSET LOVE SVG --- */}
             <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              animate={{ opacity: 0.85, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               src={LoveIcon1}
               alt="Love ornament"
-              className="absolute left-6 sm:left-20 top-1/4 w-14 sm:w-20 h-auto opacity-80 dark:opacity-90 pointer-events-none rotate-[-15deg] filter drop-shadow-lg dark:brightness-200"
+              className="absolute left-6 sm:left-20 top-1/4 w-14 sm:w-20 h-auto pointer-events-none rotate-[-15deg] filter drop-shadow-lg dark:brightness-200"
             />
 
             <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+              animate={{ opacity: 0.85, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
               src={LoveIcon2}
               alt="Love ornament"
-              className="absolute right-6 sm:right-20 bottom-1/4 w-12 sm:w-16 h-auto opacity-80 dark:opacity-90 pointer-events-none rotate-[15deg] filter drop-shadow-lg dark:brightness-200"
+              className="absolute right-6 sm:right-20 bottom-1/4 w-12 sm:w-16 h-auto pointer-events-none rotate-[15deg] filter drop-shadow-lg dark:brightness-200"
             />
 
             {/* 1. Teks "PORTFOLIO" Raksasa di Belakang Kepala */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              style={{ y: bgTextY }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-x-0 top-[30%] -translate-y-1/2 flex items-center justify-center z-0 pointer-events-none"
             >
               <h1
@@ -118,17 +127,22 @@ const Hero = () => {
             </motion.div>
 
             {/* Coretan Sambung "My" di Samping Kiri Atas */}
-            <div className="absolute left-4 sm:left-12 top-[10%] z-0 pointer-events-none hidden sm:block">
+            <motion.div 
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="absolute left-4 sm:left-12 top-[10%] z-0 pointer-events-none hidden sm:block"
+            >
               <p style={scriptFontStyle} className="text-4xl md:text-5xl text-gray-400 dark:text-gray-500 italic rotate-[-10deg]">
                 My
               </p>
-            </div>
+            </motion.div>
 
             {/* 2. Badge Nama "DHIKA" di Samping Kiri Foto */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="absolute left-2 sm:left-8 md:left-24 top-[35%] z-30 pointer-events-none flex items-center gap-3"
             >
               <div className="border border-gray-400/40 dark:border-white/30 bg-white/20 dark:bg-black/50 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
@@ -141,9 +155,9 @@ const Hero = () => {
 
             {/* Badge Tahun di Samping Kanan Foto */}
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="absolute right-2 sm:right-8 md:right-24 top-[45%] z-30 pointer-events-none"
             >
               <div className="border border-gray-400/40 dark:border-white/30 bg-white/20 dark:bg-black/50 backdrop-blur-md px-4 py-2 rounded-full shadow-lg">
@@ -153,9 +167,12 @@ const Hero = () => {
               </div>
             </motion.div>
 
-            {/* 3. Foto Profil Asli (Di Depan Teks Portfolio) */}
+            {/* 3. Foto Profil Asli (Di Depan Teks Portfolio dengan Reveal Halus) */}
             <motion.div
-              style={{ scale: photoScale, opacity: photoOpacity }}
+              style={{ y: photoY }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative z-20 flex items-center justify-center h-full will-change-transform pt-6"
             >
               <img
@@ -165,11 +182,11 @@ const Hero = () => {
               />
             </motion.div>
 
-            {/* 4. Tulisan Coretan "Networking, Web Developer & Machine Learning" Melintang di Badan */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
+            {/* 4. Tulisan Coretan "Networking, Web Developer & Machine Learning" */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="absolute bottom-10 sm:bottom-14 inset-x-0 z-30 flex items-center justify-center pointer-events-none px-4"
             >
               <p
@@ -186,18 +203,23 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Bottom Metadata Footer */}
-        <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-white/10 pt-4">
+        {/* Bottom Metadata Footer dengan Fade-in */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex items-center justify-between text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-white/10 pt-4"
+        >
           <span className="flex items-center gap-2">
             <span>ARDIKA RAHMAD SEPTIAN</span>
             <span className="text-gray-300 dark:text-zinc-700">/</span>
             <span>S1 IT</span>
           </span>
           <span>ALL RIGHTS RESERVED</span>
-        </div>
+        </motion.div>
 
       </div>
-    </section>
+    </motion.section>
   );
 };
 

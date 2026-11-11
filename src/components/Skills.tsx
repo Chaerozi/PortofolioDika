@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FiCode, FiTool, FiUsers, FiWifi } from "react-icons/fi";
 import type { IconType } from "react-icons";
 
@@ -79,45 +80,79 @@ const skillGroups: SkillGroup[] = [
 const totalSkills = skillGroups.reduce((sum, g) => sum + g.skills.length, 0);
 
 const Skills = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Efek parallax halus saat container skills di-scroll
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const headerY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+
   return (
-    <section id="skills" className="bg-[#FAFAFA] py-24 md:py-32 dark:bg-[#0A0A0A] transition-colors duration-500">
-      <div className="mx-auto max-w-6xl px-6">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="relative bg-[#FAFAFA] py-28 md:py-36 dark:bg-[#0A0A0A] transition-colors duration-700 overflow-hidden select-none"
+    >
+      <div className="mx-auto max-w-6xl px-6 lg:px-12">
         
-        {/* Editorial Header */}
+        {/* Editorial Header dengan Animasi Reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          style={{ y: headerY }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-900 dark:border-white pb-6"
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gray-900 dark:border-white/30 pb-6"
         >
-          <div className="max-w-2xl">
-            <h2 className="text-4xl md:text-6xl font-serif tracking-tight text-gray-900 dark:text-white leading-none mb-4">
+          <div className="max-w-2xl overflow-hidden">
+            <motion.h2 
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-6xl font-serif tracking-tight text-gray-900 dark:text-white leading-none mb-4"
+            >
               Core Skills.
-            </h2>
-            <p className="text-sm md:text-base text-gray-500 dark:text-gray-400">
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-sm md:text-base text-gray-500 dark:text-gray-400"
+            >
               A comprehensive index of my technical expertise and capabilities.
-            </p>
+            </motion.p>
           </div>
-          <div className="text-left md:text-right">
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-left md:text-right"
+          >
             <span className="font-mono text-xs md:text-sm uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
               {totalSkills} Skills
               <span className="mx-2 opacity-50">/</span>
               {skillGroups.length} Domains
             </span>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Premium Grid Cards */}
+        {/* Premium Grid Cards dengan Staggered Entry */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {skillGroups.map((group, index) => (
             <motion.div
               key={group.code}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="group relative overflow-hidden rounded-[2rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-[#111111] p-8 md:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 dark:hover:shadow-none hover:-translate-y-1"
+              transition={{ duration: 0.8, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative overflow-hidden rounded-[2rem] border border-gray-200/80 dark:border-white/10 bg-white dark:bg-[#111111] p-8 md:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50 dark:hover:shadow-none hover:-translate-y-1.5"
             >
               {/* Giant Watermark Icon */}
               <div className="absolute -bottom-6 -right-6 text-gray-50 dark:text-white/[0.02] transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-12 pointer-events-none">
