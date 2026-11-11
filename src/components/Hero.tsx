@@ -1,14 +1,16 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FiDownload } from "react-icons/fi";
-import ContactIcon from "../assets/images/contak.jpg";
 import ProfilePhoto from "../assets/Foto/Setengah1.png";
+import BgImage from "../assets/Foto/bgg.svg"; 
+import LoveIcon1 from "../assets/Foto/Love.svg";
+import LoveIcon2 from "../assets/Foto/Love1.svg";
 
-const heading = { fontFamily: "'Archivo Black', sans-serif" };
-
-// Style tipografi khusus untuk "PORTFOLIO"
 const portfolioFontStyle = {
   fontFamily: "'Oswald', 'Impact', 'Archivo Black', sans-serif",
+};
+
+const scriptFontStyle = {
+  fontFamily: "'Caveat', 'Great Vibes', 'Brush Script MT', cursive",
 };
 
 const stars = [
@@ -34,202 +36,166 @@ const Hero = () => {
     offset: ["start end", "end start"],
   });
 
-  const photoScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1.08, 0.85]);
-  const photoOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.4, 1, 1, 0.5]);
+  const photoScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.9, 1.02, 0.95]);
+  const photoOpacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.6, 1, 1, 0.5]);
 
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative overflow-hidden bg-white dark:bg-[#080808] transition-colors pt-10 pb-16 md:pb-24 select-none"
+      className="relative overflow-hidden bg-white dark:bg-black text-gray-900 dark:text-white transition-colors duration-500 py-6 md:py-10 flex flex-col justify-between select-none min-h-[90vh]"
     >
-      {/* Star Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-60">
+      {/* --- ORNAMEN CETAK MAJALAH: CORNER CROP MARKS --- */}
+      <div className="absolute top-4 left-4 w-4 h-4 border-t border-l border-gray-400 dark:border-white/30 z-20 pointer-events-none" />
+      <div className="absolute top-4 right-4 w-4 h-4 border-t border-r border-gray-400 dark:border-white/30 z-20 pointer-events-none" />
+      <div className="absolute bottom-4 left-4 w-4 h-4 border-b border-l border-gray-400 dark:border-white/30 z-20 pointer-events-none" />
+      <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-gray-400 dark:border-white/30 z-20 pointer-events-none" />
+
+      {/* 1. Background khusus Dark Mode (Gambar Monokrom bgg.svg) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden dark:block">
+        <img
+          src={BgImage}
+          alt="Hero Background"
+          className="w-full h-full object-cover opacity-35 scale-105 filter blur-[1px]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
+      </div>
+
+      {/* 2. Star Background khusus Light Mode */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:hidden">
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 600" preserveAspectRatio="none">
           {stars.map(([x, y], i) => (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={i % 5 === 0 ? 1 : 0.6}
-              className="fill-gray-500 dark:fill-white"
-              opacity={i % 3 === 0 ? 0.35 : 0.18}
-            />
+            <circle key={i} cx={x} cy={y} r={i % 5 === 0 ? 1 : 0.6} className="fill-gray-500" opacity={0.35} />
           ))}
         </svg>
       </div>
 
-      {/* Decorative Wavy Lines */}
-      <svg
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 w-full h-[340px] opacity-[0.06] dark:opacity-[0.1] z-0"
-        viewBox="0 0 1000 300"
-        preserveAspectRatio="none"
-      >
-        <path d="M0,150 C150,50 300,250 500,150 C700,50 850,250 1000,150" fill="none" stroke="currentColor" className="text-gray-900 dark:text-white" strokeWidth="1.5" />
-        <path d="M0,190 C150,90 300,290 500,190 C700,90 850,290 1000,190" fill="none" stroke="currentColor" className="text-gray-900 dark:text-white" strokeWidth="1.5" />
-      </svg>
+      <div className="relative z-10 max-w-6xl mx-auto px-8 w-full flex flex-col flex-1 justify-between">
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6">
-
-        {/* Top Row */}
+        {/* Top Header Row */}
         <div className="flex items-center justify-between text-[11px] sm:text-xs uppercase tracking-[0.25em] font-mono text-gray-500 dark:text-gray-400">
-          <span>Dhika</span>
-          <a
-            href="https://wa.me/6282231695138"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-gray-900 dark:hover:text-white transition"
-          >
-            Available
-          </a>
+          <span>IT SPECIALIST // 2026</span>
+          <span className="tracking-[0.3em] font-semibold">BANDUNG, ID</span>
         </div>
 
-        {/* Intro Line */}
-        <motion.p
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={heading}
-          className="mt-6 md:mt-16 text-center text-base md:text-xl uppercase tracking-tight text-gray-900 dark:text-white"
-        >
-          Hi there, I&apos;m Dhika
-        </motion.p>
+        {/* --- MAGAZINE HERO STAGE --- */}
+        <div className="relative my-auto flex items-center justify-center py-4">
+          
+          <div className="relative w-full max-w-5xl h-[420px] sm:h-[480px] md:h-[560px] flex items-center justify-center">
 
-        {/* COMPOSITION AREA */}
-        <motion.div
-          style={{ scale: photoScale, opacity: photoOpacity }}
-          className="relative mt-8 md:mt-10 flex justify-center will-change-transform"
-        >
-          <div className="relative w-[340px] h-[340px] sm:w-[420px] sm:h-[420px] md:w-[500px] md:h-[500px] flex items-center justify-center">
-
-            {/* LAYER 1: Solid Text PORTFOLIO */}
-            <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
-              <motion.h1
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                style={portfolioFontStyle}
-                className="whitespace-nowrap text-[clamp(4.5rem,15vw,10.5rem)] tracking-[-0.03em] uppercase leading-none text-[#E5D7BF] dark:text-[#E5D7BF] select-none"
-              >
-                PORTFOLIO
-              </motion.h1>
-            </div>
-
-            {/* LAYER 2: Profile Photo */}
+            {/* --- ORNAMEN ASSET LOVE SVG (Diperjelas & Diposisikan Pas) --- */}
             <motion.img
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-              src={ProfilePhoto}
-              alt="Ardika Rahmad Septian"
-              className="relative z-10 w-[250px] sm:w-[300px] md:w-[340px] h-auto object-contain drop-shadow-2xl"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              src={LoveIcon1}
+              alt="Love ornament"
+              className="absolute left-6 sm:left-20 top-1/4 w-14 sm:w-20 h-auto opacity-80 dark:opacity-90 pointer-events-none rotate-[-15deg] filter drop-shadow-lg dark:brightness-200"
             />
 
-            {/* LAYER 3: Outline Text PORTFOLIO */}
-            <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+            <motion.img
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              src={LoveIcon2}
+              alt="Love ornament"
+              className="absolute right-6 sm:right-20 bottom-1/4 w-12 sm:w-16 h-auto opacity-80 dark:opacity-90 pointer-events-none rotate-[15deg] filter drop-shadow-lg dark:brightness-200"
+            />
+
+            {/* 1. Teks "PORTFOLIO" Raksasa di Belakang Kepala */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute inset-x-0 top-[30%] -translate-y-1/2 flex items-center justify-center z-0 pointer-events-none"
+            >
               <h1
-                style={{
-                  ...portfolioFontStyle,
-                  WebkitTextStroke: "1.5px #E5D7BF",
-                  color: "transparent",
-                }}
-                className="whitespace-nowrap text-[clamp(4.5rem,15vw,10.5rem)] tracking-[-0.03em] uppercase leading-none select-none"
+                style={portfolioFontStyle}
+                className="whitespace-nowrap text-[clamp(5rem,21vw,17rem)] tracking-[-0.03em] uppercase leading-none text-[#E5D7BF] dark:text-[#E5D7BF]/90 select-none drop-shadow-2xl"
               >
                 PORTFOLIO
               </h1>
+            </motion.div>
+
+            {/* Coretan Sambung "My" di Samping Kiri Atas */}
+            <div className="absolute left-4 sm:left-12 top-[10%] z-0 pointer-events-none hidden sm:block">
+              <p style={scriptFontStyle} className="text-4xl md:text-5xl text-gray-400 dark:text-gray-500 italic rotate-[-10deg]">
+                My
+              </p>
             </div>
 
-            {/* LAYER 4: Circular Text */}
-            <motion.svg
-              viewBox="0 0 400 400"
-              className="absolute inset-0 w-full h-full z-30 pointer-events-none"
-              animate={{ rotate: [-5, 5, -5] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            {/* 2. Badge Nama "DHIKA" di Samping Kiri Foto */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="absolute left-2 sm:left-8 md:left-24 top-[35%] z-30 pointer-events-none flex items-center gap-3"
             >
-              <defs>
-                <path id="circleTop" d="M 30,200 A 170,170 0 0 1 370,200" fill="none" />
-                <path id="circleBottom" d="M 30,200 A 170,170 0 0 0 370,200" fill="none" />
-                {/* Text shadow for better readability over outline */}
-                <filter id="textShadow">
-                  <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.7" />
-                </filter>
-              </defs>
+              <div className="border border-gray-400/40 dark:border-white/30 bg-white/20 dark:bg-black/50 backdrop-blur-md px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-900 dark:bg-white" />
+                <span className="font-mono text-xs sm:text-sm tracking-[0.3em] font-bold text-gray-900 dark:text-white uppercase">
+                  DHIKA
+                </span>
+              </div>
+            </motion.div>
 
-              <text
-                style={heading}
-                className="fill-gray-900 dark:fill-white"
-                filter="url(#textShadow)"
-                fontSize="18"
-                letterSpacing="2.5"
-                textAnchor="middle"
+            {/* Badge Tahun di Samping Kanan Foto */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="absolute right-2 sm:right-8 md:right-24 top-[45%] z-30 pointer-events-none"
+            >
+              <div className="border border-gray-400/40 dark:border-white/30 bg-white/20 dark:bg-black/50 backdrop-blur-md px-4 py-2 rounded-full shadow-lg">
+                <span className="font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold text-gray-900 dark:text-white uppercase">
+                  2021 - 2026
+                </span>
+              </div>
+            </motion.div>
+
+            {/* 3. Foto Profil Asli (Di Depan Teks Portfolio) */}
+            <motion.div
+              style={{ scale: photoScale, opacity: photoOpacity }}
+              className="relative z-20 flex items-center justify-center h-full will-change-transform pt-6"
+            >
+              <img
+                src={ProfilePhoto}
+                alt="Ardika Rahmad Septian"
+                className="max-h-[340px] sm:max-h-[420px] md:max-h-[500px] w-auto object-contain drop-shadow-2xl"
+              />
+            </motion.div>
+
+            {/* 4. Tulisan Coretan "Networking, Web Developer & Machine Learning" Melintang di Badan */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="absolute bottom-10 sm:bottom-14 inset-x-0 z-30 flex items-center justify-center pointer-events-none px-4"
+            >
+              <p
+                style={scriptFontStyle}
+                className="text-2xl sm:text-3xl md:text-4xl text-gray-900 dark:text-white tracking-wide font-bold italic drop-shadow-[0_4px_16px_rgba(255,255,255,0.95)] dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] text-center rotate-[-1.5deg]"
               >
-                <textPath href="#circleTop" startOffset="50%">
-                  NETWORKING
-                </textPath>
-              </text>
+                Networking, Web Developer &amp; Machine Learning
+              </p>
+            </motion.div>
 
-              <text
-                style={heading}
-                className="fill-gray-900 dark:fill-white"
-                filter="url(#textShadow)"
-                fontSize="18"
-                letterSpacing="2.5"
-                textAnchor="middle"
-              >
-                <textPath href="#circleBottom" startOffset="50%">
-                  WEB DEVELOPER &amp; MACHINE LEARNING
-                </textPath>
-              </text>
-            </motion.svg>
-
-            {/* Bottom Shadow */}
-            <div className="absolute z-0 bottom-[13%] w-[150px] h-[14px] sm:w-[180px] sm:h-[16px] bg-gray-900/20 dark:bg-black/50 rounded-full blur-md" />
-
-            {/* Side Gradients */}
-            <div className="absolute z-0 left-0 top-1/2 -translate-y-1/2 w-[45%] h-[70%] bg-gradient-to-r from-gray-900/10 dark:from-white/10 to-transparent rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute z-0 right-0 top-1/2 -translate-y-1/2 w-[45%] h-[70%] bg-gradient-to-l from-gray-900/10 dark:from-white/10 to-transparent rounded-full blur-2xl pointer-events-none" />
+            {/* Bottom Ground Shadow */}
+            <div className="absolute z-0 bottom-2 w-[200px] h-[12px] sm:w-[260px] sm:h-[16px] bg-gray-900/30 dark:bg-black/70 rounded-full blur-lg" />
 
           </div>
-        </motion.div>
-
-        {/* Description & Buttons */}
-        <div className="mt-6 md:mt-8 flex flex-col items-center gap-6 text-center max-w-xl mx-auto">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed"
-          >
-            Fresh graduate in Information Technology focused on computer networking, with hands-on experience in network configuration, troubleshooting, web development, IoT, and machine learning.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <a
-              href="/CV-Ardika-Rahmad-Septiann.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 text-sm font-medium transition hover:opacity-90"
-            >
-              <FiDownload />
-              View CV
-            </a>
-
-            <a
-              href="https://wa.me/6282231695138"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-gray-900 dark:border-gray-300 text-gray-900 dark:text-gray-100 px-6 py-3 text-sm font-medium hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-black transition"
-            >
-              <img src={ContactIcon} alt="Contact" className="w-4 h-4 rounded-sm" />
-              Contact Me
-            </a>
-          </motion.div>
         </div>
+
+        {/* Bottom Metadata Footer */}
+        <div className="flex items-center justify-between text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-white/10 pt-4">
+          <span className="flex items-center gap-2">
+            <span>ARDIKA RAHMAD SEPTIAN</span>
+            <span className="text-gray-300 dark:text-zinc-700">/</span>
+            <span>S1 IT</span>
+          </span>
+          <span>ALL RIGHTS RESERVED</span>
+        </div>
+
       </div>
     </section>
   );
